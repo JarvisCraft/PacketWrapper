@@ -31,7 +31,7 @@ public abstract class AbstractPacket {
 	// The packet we will be modifying
 	protected PacketContainer handle;
 
-	private static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
+	protected static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
 	/**
 	 * Constructs a new strongly typed wrapper for the given packet.
