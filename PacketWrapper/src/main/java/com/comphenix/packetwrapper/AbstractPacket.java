@@ -18,18 +18,20 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.bukkit.entity.Player;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.base.Objects;
+import org.bukkit.entity.Player;
+
+import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPacket {
 	// The packet we will be modifying
 	protected PacketContainer handle;
+
+	private static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
 	/**
 	 * Constructs a new strongly typed wrapper for the given packet.
@@ -65,7 +67,7 @@ public abstract class AbstractPacket {
 	 */
 	public void sendPacket(Player receiver) {
 		try {
-			ProtocolLibrary.getProtocolManager().sendServerPacket(receiver,
+			PROTOCOL_MANAGER.sendServerPacket(receiver,
 					getHandle());
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException("Cannot send packet.", e);
@@ -76,7 +78,7 @@ public abstract class AbstractPacket {
 	 * Send the current packet to all online players.
 	 */
 	public void broadcastPacket() {
-		ProtocolLibrary.getProtocolManager().broadcastServerPacket(getHandle());
+		PROTOCOL_MANAGER.broadcastServerPacket(getHandle());
 	}
 
 	/**
@@ -90,7 +92,7 @@ public abstract class AbstractPacket {
 	@Deprecated
 	public void recievePacket(Player sender) {
 		try {
-			ProtocolLibrary.getProtocolManager().recieveClientPacket(sender,
+			PROTOCOL_MANAGER.recieveClientPacket(sender,
 					getHandle());
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot recieve packet.", e);
@@ -105,7 +107,7 @@ public abstract class AbstractPacket {
 	 */
 	public void receivePacket(Player sender) {
 		try {
-			ProtocolLibrary.getProtocolManager().recieveClientPacket(sender,
+			PROTOCOL_MANAGER.recieveClientPacket(sender,
 					getHandle());
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot receive packet.", e);

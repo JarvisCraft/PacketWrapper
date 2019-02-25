@@ -100,7 +100,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 			int objectData) {
 		if (entityConstructor == null)
 			entityConstructor =
-					ProtocolLibrary.getProtocolManager()
+					PROTOCOL_MANAGER
 							.createPacketConstructor(TYPE, entity, type,
 									objectData);
 		return entityConstructor.createPacket(entity, type, objectData);
