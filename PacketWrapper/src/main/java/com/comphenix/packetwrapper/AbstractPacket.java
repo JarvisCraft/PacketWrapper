@@ -22,6 +22,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.utility.MinecraftVersion;
 import com.google.common.base.Objects;
 import org.bukkit.entity.Player;
 
@@ -32,6 +33,10 @@ public abstract class AbstractPacket {
 	protected PacketContainer handle;
 
 	protected static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
+	protected static final MinecraftVersion VERSION = PROTOCOL_MANAGER.getMinecraftVersion();
+	protected static final int MAJOR_VERSION = VERSION.getMajor();
+	protected static final int MINOR_VERSION = VERSION.getMinor();
+	protected static final int VERSION_BUILD = VERSION.getBuild();
 
 	/**
 	 * Constructs a new strongly typed wrapper for the given packet.
