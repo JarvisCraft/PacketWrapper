@@ -77,27 +77,30 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 	}
 
 	public double getX() {
-		return handle.getDoubles().read(0);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(0) : handle.getIntegers().read(1) / 32.0D;
 	}
 
 	public void setX(double value) {
-		handle.getDoubles().write(0, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(0, value);
+		else handle.getIntegers().write(1, ConversionUtil.floor(value * 32.0D));
 	}
 
 	public double getY() {
-		return handle.getDoubles().read(1);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(1) : handle.getIntegers().read(2) / 32.0D;
 	}
 
 	public void setY(double value) {
-		handle.getDoubles().write(1, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(1, value);
+		else handle.getIntegers().write(2, ConversionUtil.floor(value * 32.0D));
 	}
 
 	public double getZ() {
-		return handle.getDoubles().read(2);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(2) : handle.getIntegers().read(3) / 32.0D;
 	}
 
 	public void setZ(double value) {
-		handle.getDoubles().write(2, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(2, value);
+		else handle.getIntegers().write(3, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
