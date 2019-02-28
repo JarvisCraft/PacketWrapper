@@ -133,7 +133,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current X
 	 */
 	public double getX() {
-		return handle.getDoubles().read(0);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(0) : handle.getIntegers().read(2) / 32.0D;
 	}
 
 	/**
@@ -142,7 +142,8 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
-		handle.getDoubles().write(0, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(0, value);
+		else handle.getIntegers().write(2, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current y
 	 */
 	public double getY() {
-		return handle.getDoubles().read(1);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(1) : handle.getIntegers().read(3) / 32.0D;
 	}
 
 	/**
@@ -162,7 +163,8 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
-		handle.getDoubles().write(1, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(1, value);
+		else handle.getIntegers().write(3, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -173,7 +175,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current z
 	 */
 	public double getZ() {
-		return handle.getDoubles().read(2);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(2) : handle.getIntegers().read(4) / 32.0D;
 	}
 
 	/**
@@ -182,7 +184,8 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
-		handle.getDoubles().write(2, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(2, value);
+		else handle.getIntegers().write(4, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -245,7 +248,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity X
 	 */
 	public double getVelocityX() {
-		return handle.getIntegers().read(2) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 2 : 5) / 8000.0D;
 	}
 
 	/**
@@ -254,7 +257,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityX(double value) {
-		handle.getIntegers().write(2, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 2 : 5, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -263,7 +266,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity y
 	 */
 	public double getVelocityY() {
-		return handle.getIntegers().read(3) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 3 : 6) / 8000.0D;
 	}
 
 	/**
@@ -272,7 +275,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityY(double value) {
-		handle.getIntegers().write(3, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 3 : 6, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -281,7 +284,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity z
 	 */
 	public double getVelocityZ() {
-		return handle.getIntegers().read(4) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 4 : 7) / 8000.0D;
 	}
 
 	/**
@@ -290,7 +293,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityZ(double value) {
-		handle.getIntegers().write(4, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 4 : 7, (int) (value * 8000.0D));
 	}
 
 	/**
