@@ -22,8 +22,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperPlayServerResourcePackSend extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.RESOURCE_PACK_SEND;
+	public static final PacketType TYPE = PacketType.Play.Server.RESOURCE_PACK_SEND;
 
 	public WrapperPlayServerResourcePackSend() {
 		super(new PacketContainer(TYPE), TYPE);

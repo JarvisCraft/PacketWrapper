@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerSpawnEntityWeather extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SPAWN_ENTITY_WEATHER;
+	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_WEATHER;
 
 	public WrapperPlayServerSpawnEntityWeather() {
 		super(new PacketContainer(TYPE), TYPE);

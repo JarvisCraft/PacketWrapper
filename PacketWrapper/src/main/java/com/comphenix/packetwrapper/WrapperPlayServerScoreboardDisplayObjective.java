@@ -22,8 +22,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperPlayServerScoreboardDisplayObjective extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SCOREBOARD_DISPLAY_OBJECTIVE;
+	public static final PacketType TYPE = PacketType.Play.Server.SCOREBOARD_DISPLAY_OBJECTIVE;
 
 	public WrapperPlayServerScoreboardDisplayObjective() {
 		super(new PacketContainer(TYPE), TYPE);

@@ -32,8 +32,7 @@ import com.comphenix.protocol.injector.PacketConstructor;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SPAWN_ENTITY_LIVING;
+	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_LIVING;
 
 	private static PacketConstructor entityConstructor;
 

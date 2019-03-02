@@ -24,8 +24,7 @@ import com.comphenix.protocol.wrappers.ChunkCoordIntPair;
 import com.comphenix.protocol.wrappers.MultiBlockChangeInfo;
 
 public class WrapperPlayServerMultiBlockChange extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.MULTI_BLOCK_CHANGE;
+	public static final PacketType TYPE = PacketType.Play.Server.MULTI_BLOCK_CHANGE;
 
 	public WrapperPlayServerMultiBlockChange() {
 		super(new PacketContainer(TYPE), TYPE);

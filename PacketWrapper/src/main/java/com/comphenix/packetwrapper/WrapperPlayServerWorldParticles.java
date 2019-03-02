@@ -23,8 +23,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedParticle;
 
 public class WrapperPlayServerWorldParticles extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.WORLD_PARTICLES;
+	public static final PacketType TYPE = PacketType.Play.Server.WORLD_PARTICLES;
 
 	public WrapperPlayServerWorldParticles() {
 		super(new PacketContainer(TYPE), TYPE);

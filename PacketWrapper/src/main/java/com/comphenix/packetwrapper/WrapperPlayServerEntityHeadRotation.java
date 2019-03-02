@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerEntityHeadRotation extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.ENTITY_HEAD_ROTATION;
+	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_HEAD_ROTATION;
 
 	public WrapperPlayServerEntityHeadRotation() {
 		super(new PacketContainer(TYPE), TYPE);

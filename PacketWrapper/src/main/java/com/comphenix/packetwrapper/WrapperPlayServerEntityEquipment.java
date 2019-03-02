@@ -28,8 +28,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
 
 public class WrapperPlayServerEntityEquipment extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.ENTITY_EQUIPMENT;
+	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_EQUIPMENT;
 
 	public WrapperPlayServerEntityEquipment() {
 		super(new PacketContainer(TYPE), TYPE);

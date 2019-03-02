@@ -24,8 +24,7 @@ import com.comphenix.protocol.wrappers.BlockPosition;
 
 public class WrapperPlayServerOpenSignEditor extends AbstractPacket {
 
-	public static final PacketType TYPE =
-			PacketType.Play.Server.OPEN_SIGN_EDITOR;
+	public static final PacketType TYPE = PacketType.Play.Server.OPEN_SIGN_EDITOR;
 
 	public WrapperPlayServerOpenSignEditor() {
 		super(new PacketContainer(TYPE), TYPE);

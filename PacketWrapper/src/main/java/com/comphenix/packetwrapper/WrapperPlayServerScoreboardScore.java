@@ -23,8 +23,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.ScoreboardAction;
 
 public class WrapperPlayServerScoreboardScore extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SCOREBOARD_SCORE;
+	public static final PacketType TYPE = PacketType.Play.Server.SCOREBOARD_SCORE;
 
 	public WrapperPlayServerScoreboardScore() {
 		super(new PacketContainer(TYPE), TYPE);

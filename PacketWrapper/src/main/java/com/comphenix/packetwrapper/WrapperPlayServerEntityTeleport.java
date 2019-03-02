@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerEntityTeleport extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.ENTITY_TELEPORT;
+	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_TELEPORT;
 
 	public WrapperPlayServerEntityTeleport() {
 		super(new PacketContainer(TYPE), TYPE);

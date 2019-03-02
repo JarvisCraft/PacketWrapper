@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerRelEntityMoveLook extends WrapperPlayServerEntity {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.REL_ENTITY_MOVE_LOOK;
+	public static final PacketType TYPE = PacketType.Play.Server.REL_ENTITY_MOVE_LOOK;
 
 	public WrapperPlayServerRelEntityMoveLook() {
 		super(new PacketContainer(TYPE), TYPE);

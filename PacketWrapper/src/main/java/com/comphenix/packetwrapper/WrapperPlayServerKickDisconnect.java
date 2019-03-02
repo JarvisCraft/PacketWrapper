@@ -23,8 +23,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class WrapperPlayServerKickDisconnect extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.KICK_DISCONNECT;
+	public static final PacketType TYPE = PacketType.Play.Server.KICK_DISCONNECT;
 
 	public WrapperPlayServerKickDisconnect() {
 		super(new PacketContainer(TYPE), TYPE);

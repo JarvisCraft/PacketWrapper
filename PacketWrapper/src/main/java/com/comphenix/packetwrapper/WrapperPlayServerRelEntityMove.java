@@ -25,8 +25,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
 public class WrapperPlayServerRelEntityMove extends WrapperPlayServerEntity {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.REL_ENTITY_MOVE;
+	public static final PacketType TYPE = PacketType.Play.Server.REL_ENTITY_MOVE;
 
 	public WrapperPlayServerRelEntityMove() {
 		super(new PacketContainer(TYPE), TYPE);

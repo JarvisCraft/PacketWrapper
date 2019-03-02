@@ -25,8 +25,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.SoundCategory;
 
 public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.NAMED_SOUND_EFFECT;
+	public static final PacketType TYPE = PacketType.Play.Server.NAMED_SOUND_EFFECT;
 
 	public WrapperPlayServerNamedSoundEffect() {
 		super(new PacketContainer(TYPE), TYPE);

@@ -25,8 +25,7 @@ import com.comphenix.protocol.wrappers.MinecraftKey;
 
 public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 
-	public static final PacketType TYPE =
-			PacketType.Play.Server.CUSTOM_SOUND_EFFECT;
+	public static final PacketType TYPE = PacketType.Play.Server.CUSTOM_SOUND_EFFECT;
 
 	public WrapperPlayServerCustomSoundEffect() {
 		super(new PacketContainer(TYPE), TYPE);

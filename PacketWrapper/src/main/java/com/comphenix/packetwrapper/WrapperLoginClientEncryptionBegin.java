@@ -22,8 +22,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperLoginClientEncryptionBegin extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Login.Client.ENCRYPTION_BEGIN;
+	public static final PacketType TYPE = PacketType.Login.Client.ENCRYPTION_BEGIN;
 
 	public WrapperLoginClientEncryptionBegin() {
 		super(new PacketContainer(TYPE), TYPE);

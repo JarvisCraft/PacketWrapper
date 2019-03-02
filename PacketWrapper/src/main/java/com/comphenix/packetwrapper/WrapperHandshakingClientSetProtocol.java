@@ -23,8 +23,7 @@ import com.comphenix.protocol.PacketType.Protocol;
 import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperHandshakingClientSetProtocol extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Handshake.Client.SET_PROTOCOL;
+	public static final PacketType TYPE = PacketType.Handshake.Client.SET_PROTOCOL;
 
 	public WrapperHandshakingClientSetProtocol() {
 		super(new PacketContainer(TYPE), TYPE);

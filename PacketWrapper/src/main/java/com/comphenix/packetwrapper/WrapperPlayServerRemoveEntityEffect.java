@@ -27,8 +27,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerRemoveEntityEffect extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.REMOVE_ENTITY_EFFECT;
+	public static final PacketType TYPE = PacketType.Play.Server.REMOVE_ENTITY_EFFECT;
 
 	public WrapperPlayServerRemoveEntityEffect() {
 		super(new PacketContainer(TYPE), TYPE);
