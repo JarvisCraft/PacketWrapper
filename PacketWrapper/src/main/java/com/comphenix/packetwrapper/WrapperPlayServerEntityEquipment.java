@@ -30,6 +30,11 @@ import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
 public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_EQUIPMENT;
 
+	/**
+	 * All {@link ItemSlot} enum's values stored for faster access
+	 */
+	protected static final ItemSlot[] ITEM_SLOTS = ItemSlot.values();
+
 	public WrapperPlayServerEntityEquipment() {
 		super(new PacketContainer(TYPE), TYPE);
 		handle.getModifier().writeDefaults();
@@ -80,11 +85,39 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	}
 
 	public ItemSlot getSlot() {
-		return handle.getItemSlots().read(0);
+		if (MINOR_VERSION > 8) return handle.getItemSlots().read(0);
+		int slot = handle.getIntegers().read(0);
+		if (slot >= ITEM_SLOTS.length) throw new IllegalArgumentException("Unknown item slot received: " + slot);
+		return ITEM_SLOTS[slot];
 	}
 
 	public void setSlot(ItemSlot value) {
-		handle.getItemSlots().write(0, value);
+		if (MINOR_VERSION > 8) handle.getItemSlots().write(0, value);
+		else {
+			switch (value) {
+				case MAINHAND: {
+					handle.getIntegers().write(1, 0);
+					break;
+				}
+				case OFFHAND: throw new IllegalArgumentException("Offhand is not available on 1.8 or less");
+				case FEET: {
+					handle.getIntegers().write(1, 1);
+					break;
+				}
+				case LEGS: {
+					handle.getIntegers().write(1, 2);
+					break;
+				}
+				case CHEST: {
+					handle.getIntegers().write(1, 3);
+					break;
+				}
+				case HEAD: {
+					handle.getIntegers().write(1, 4);
+					break;
+				}
+			}
+		}
 	}
 
 	/**
