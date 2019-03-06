@@ -45,11 +45,13 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	}
 
 	public SoundCategory getSoundCategory() {
-		return handle.getSoundCategories().read(0);
+		if (MINOR_VERSION > 8) return handle.getSoundCategories().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setSoundCategory(SoundCategory value) {
-		handle.getSoundCategories().write(0, value);
+		if (MINOR_VERSION > 8) handle.getSoundCategories().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
