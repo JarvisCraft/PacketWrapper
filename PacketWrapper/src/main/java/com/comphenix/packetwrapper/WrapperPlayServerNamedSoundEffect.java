@@ -36,11 +36,11 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
-	public Sound getSoundEffect() {
+	public Sound getSound() {
 		return handle.getSoundEffects().read(0);
 	}
 
-	public void setSoundEffect(Sound value) {
+	public void setSound(Sound value) {
 		handle.getSoundEffects().write(0, value);
 	}
 
@@ -56,61 +56,61 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Effect position X.
-	 * 
+	 *
 	 * @return The current Effect position X
 	 */
-	public double getEffectPositionX() {
+	public double getX() {
 		return handle.getIntegers().read(0) / 8D;
 	}
 
 	/**
 	 * Set Effect position X.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionX(double value) {
+	public void setX(double value) {
 		handle.getIntegers().write(0, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Effect position Y.
-	 * 
+	 *
 	 * @return The current Effect position Y
 	 */
-	public double getEffectPositionY() {
+	public double getY() {
 		return handle.getIntegers().read(1) / 8D;
 	}
 
 	/**
 	 * Set Effect position Y.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionY(double value) {
+	public void setY(double value) {
 		handle.getIntegers().write(1, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Effect position Z.
-	 * 
+	 *
 	 * @return The current Effect position Z
 	 */
-	public double getEffectPositionZ() {
+	public double getZ() {
 		return handle.getIntegers().read(2) / 8D;
 	}
 
 	/**
 	 * Set Effect position Z.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionZ(double value) {
+	public void setZ(double value) {
 		handle.getIntegers().write(2, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Volume.
-	 * 
+	 *
 	 * @return The current Volume
 	 */
 	public float getVolume() {
@@ -119,7 +119,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Set Volume.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVolume(float value) {
@@ -128,11 +128,12 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Pitch.
-	 * 
+	 *
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
-		return handle.getFloat().read(1) / (MINOR_VERSION > 8 ? 2 : 63);
+		if (MINOR_VERSION > 8) return handle.getFloat().read(1);
+		return handle.getIntegers().read(3) / 63F;
 	}
 
 	/**
@@ -141,7 +142,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setPitch(float value) {
-		handle.getFloat().write(1, value * (MINOR_VERSION > 8 ? 2 : 63));
+		if (MINOR_VERSION > 8) handle.getFloat().write(1, value);
+		else handle.getIntegers().write(3, (int) (value * 63));
 	}
-
 }

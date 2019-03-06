@@ -25,7 +25,8 @@ import com.comphenix.protocol.wrappers.MinecraftKey;
 
 public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 
-	public static final PacketType TYPE = PacketType.Play.Server.CUSTOM_SOUND_EFFECT;
+	public static final PacketType TYPE = MINOR_VERSION > 8
+			? PacketType.Play.Server.CUSTOM_SOUND_EFFECT : PacketType.Play.Server.NAMED_SOUND_EFFECT;
 
 	public WrapperPlayServerCustomSoundEffect() {
 		super(new PacketContainer(TYPE), TYPE);
@@ -43,8 +44,8 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * 
 	 * @return The current Sound Name
 	 */
-	public MinecraftKey getSoundName() {
-		return handle.getMinecraftKeys().read(0);
+	public MinecraftKey getSound() {
+		return MINOR_VERSION > 8 ? handle.getMinecraftKeys().read(0) : new MinecraftKey(handle.getStrings().read(0));
 	}
 
 	/**
@@ -52,99 +53,78 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
-	public void setSoundName(MinecraftKey value) {
-		handle.getMinecraftKeys().write(0, value);
+	public void setSound(MinecraftKey value) {
+		if (MINOR_VERSION > 8) handle.getMinecraftKeys().write(0, value);
+		else handle.getStrings().write(0, value.getKey());
 	}
 
-	/**
-	 * Retrieve Sound Category.
-	 * <p>
-	 * Notes: the category that this sound will be played from (current
-	 * categories)
-	 * 
-	 * @return The current Sound Category
-	 */
 	public SoundCategory getSoundCategory() {
-		return handle.getSoundCategories().read(0);
+		if (MINOR_VERSION > 8) return handle.getSoundCategories().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
-	/**
-	 * Set Sound Category.
-	 * 
-	 * @param value - new value.
-	 */
 	public void setSoundCategory(SoundCategory value) {
-		handle.getSoundCategories().write(0, value);
+		if (MINOR_VERSION > 8) handle.getSoundCategories().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
-	 * Retrieve Effect Position X.
-	 * <p>
-	 * Notes: effect X multiplied by 8 (fixed-point number with only 3 bits
-	 * dedicated to the fractional part)
-	 * 
-	 * @return The current Effect Position X
+	 * Retrieve Effect position X.
+	 *
+	 * @return The current Effect position X
 	 */
-	public int getX() {
-		return handle.getIntegers().read(0);
+	public double getX() {
+		return handle.getIntegers().read(0) / 8D;
 	}
 
 	/**
-	 * Set Effect Position X.
-	 * 
+	 * Set Effect position X.
+	 *
 	 * @param value - new value.
 	 */
-	public void setX(int value) {
-		handle.getIntegers().write(0, value);
+	public void setX(double value) {
+		handle.getIntegers().write(0, (int) (value * 8));
 	}
 
 	/**
-	 * Retrieve Effect Position Y.
-	 * <p>
-	 * Notes: effect Y multiplied by 8 (fixed-point number with only 3 bits
-	 * dedicated to the fractional part)
-	 * 
-	 * @return The current Effect Position Y
+	 * Retrieve Effect position Y.
+	 *
+	 * @return The current Effect position Y
 	 */
-	public int getY() {
-		return handle.getIntegers().read(1);
+	public double getY() {
+		return handle.getIntegers().read(1) / 8D;
 	}
 
 	/**
-	 * Set Effect Position Y.
-	 * 
+	 * Set Effect position Y.
+	 *
 	 * @param value - new value.
 	 */
-	public void setY(int value) {
-		handle.getIntegers().write(1, value);
+	public void setY(double value) {
+		handle.getIntegers().write(1, (int) (value * 8));
 	}
 
 	/**
-	 * Retrieve Effect Position Z.
-	 * <p>
-	 * Notes: effect Z multiplied by 8 (fixed-point number with only 3 bits
-	 * dedicated to the fractional part)
-	 * 
-	 * @return The current Effect Position Z
+	 * Retrieve Effect position Z.
+	 *
+	 * @return The current Effect position Z
 	 */
-	public int getZ() {
-		return handle.getIntegers().read(2);
+	public double getZ() {
+		return handle.getIntegers().read(2) / 8D;
 	}
 
 	/**
-	 * Set Effect Position Z.
-	 * 
+	 * Set Effect position Z.
+	 *
 	 * @param value - new value.
 	 */
-	public void setZ(int value) {
-		handle.getIntegers().write(2, value);
+	public void setZ(double value) {
+		handle.getIntegers().write(2, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Volume.
-	 * <p>
-	 * Notes: 1 is 100%, can be more
-	 * 
+	 *
 	 * @return The current Volume
 	 */
 	public float getVolume() {
@@ -153,7 +133,7 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 
 	/**
 	 * Set Volume.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVolume(float value) {
@@ -162,21 +142,21 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Pitch.
-	 * <p>
-	 * Notes: 63 is 100%, can be more
-	 * 
+	 *
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
-		return handle.getFloat().read(1);
+		if (MINOR_VERSION > 8) return handle.getFloat().read(1);
+		return handle.getIntegers().read(3) / 63F;
 	}
 
 	/**
 	 * Set Pitch.
-	 * 
-	 * @param value - new value.
+	 *
+	 * @param value - new value
 	 */
 	public void setPitch(float value) {
-		handle.getFloat().write(1, value);
+		if (MINOR_VERSION > 8) handle.getFloat().write(1, value);
+		else handle.getIntegers().write(3, (int) (value * 63));
 	}
 }
