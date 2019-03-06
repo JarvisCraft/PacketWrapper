@@ -56,8 +56,6 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Effect position X.
-	 * <p>
-	 * Notes: effect X multiplied by 8
 	 * 
 	 * @return The current Effect position X
 	 */
@@ -76,8 +74,6 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Effect position Y.
-	 * <p>
-	 * Notes: effect Y multiplied by 8
 	 * 
 	 * @return The current Effect position Y
 	 */
@@ -96,8 +92,6 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Effect position Z.
-	 * <p>
-	 * Notes: effect Z multiplied by 8
 	 * 
 	 * @return The current Effect position Z
 	 */
