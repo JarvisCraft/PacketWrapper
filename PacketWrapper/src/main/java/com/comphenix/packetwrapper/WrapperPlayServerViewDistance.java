@@ -20,20 +20,36 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
 
-public class WrapperPlayClientStructureBlock extends AbstractPacket {
+public class WrapperPlayServerViewDistance extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.STRUCT;
+    public static final PacketType TYPE = PacketType.Play.Server.VIEW_DISTANCE;
     
-    public WrapperPlayClientStructureBlock() {
+    public WrapperPlayServerViewDistance() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayClientStructureBlock(PacketContainer packet) {
+    public WrapperPlayServerViewDistance(PacketContainer packet) {
         super(packet, TYPE);
     }
-
-    // TODO manually upon request
+    
+    /**
+     * Retrieve View Distance.
+     * <p>
+     * Notes: render distance (2-32)
+     * @return The current View Distance
+     */
+    public int getViewDistance() {
+        return handle.getIntegers().read(0);
+    }
+    
+    /**
+     * Set View Distance.
+     * @param value - new value.
+     */
+    public void setViewDistance(int value) {
+        handle.getIntegers().write(0, value);
+    }
+    
 }

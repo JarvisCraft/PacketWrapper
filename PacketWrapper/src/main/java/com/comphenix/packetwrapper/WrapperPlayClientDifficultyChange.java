@@ -20,20 +20,37 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers.Difficulty;
 
-public class WrapperPlayClientStructureBlock extends AbstractPacket {
+public class WrapperPlayClientDifficultyChange extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.STRUCT;
+    public static final PacketType TYPE = PacketType.Play.Client.DIFFICULTY_CHANGE;
     
-    public WrapperPlayClientStructureBlock() {
+    public WrapperPlayClientDifficultyChange() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayClientStructureBlock(PacketContainer packet) {
+    public WrapperPlayClientDifficultyChange(PacketContainer packet) {
         super(packet, TYPE);
     }
-
-    // TODO manually upon request
+    
+    /**
+     * Retrieve New difficulty.
+     * <p>
+     * Notes: 0: peaceful, 1: easy, 2: normal, 3: hard
+     * @return The current New difficulty
+     */
+    public Difficulty getNewDifficulty() {
+        return handle.getDifficulties().read(0);
+    }
+    
+    /**
+     * Set New difficulty.
+     * @param value - new value.
+     */
+    public void setNewDifficulty(Difficulty value) {
+        handle.getDifficulties().write(0, value);
+    }
+    
 }

@@ -20,20 +20,37 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
 
-public class WrapperPlayClientStructureBlock extends AbstractPacket {
+public class WrapperPlayServerOpenBook extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.STRUCT;
+    public static final PacketType TYPE = PacketType.Play.Server.OPEN_BOOK;
     
-    public WrapperPlayClientStructureBlock() {
+    public WrapperPlayServerOpenBook() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayClientStructureBlock(PacketContainer packet) {
+    public WrapperPlayServerOpenBook(PacketContainer packet) {
         super(packet, TYPE);
     }
-
-    // TODO manually upon request
+    
+    /**
+     * Retrieve Hand.
+     * <p>
+     * Notes: 0: Main hand, 1: Off hand
+     * @return The current Hand
+     */
+    public Hand getHand() {
+        return handle.getHands().read(0);
+    }
+    
+    /**
+     * Set Hand.
+     * @param value - new value.
+     */
+    public void setHand(Hand value) {
+        handle.getHands().write(0, value);
+    }
+    
 }

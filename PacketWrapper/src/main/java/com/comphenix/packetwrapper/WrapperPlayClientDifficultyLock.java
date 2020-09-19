@@ -20,20 +20,34 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
 
-public class WrapperPlayClientStructureBlock extends AbstractPacket {
+public class WrapperPlayClientDifficultyLock extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.STRUCT;
+    public static final PacketType TYPE = PacketType.Play.Client.DIFFICULTY_LOCK;
     
-    public WrapperPlayClientStructureBlock() {
+    public WrapperPlayClientDifficultyLock() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayClientStructureBlock(PacketContainer packet) {
+    public WrapperPlayClientDifficultyLock(PacketContainer packet) {
         super(packet, TYPE);
     }
-
-    // TODO manually upon request
+    
+    /**
+     * Retrieve Locked.
+     * @return The current Locked
+     */
+    public boolean getLocked() {
+        return handle.getBooleans().read(0);
+    }
+    
+    /**
+     * Set Locked.
+     * @param value - new value.
+     */
+    public void setLocked(boolean value) {
+        handle.getBooleans().write(0, value);
+    }
+    
 }
