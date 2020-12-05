@@ -18,56 +18,93 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import org.bukkit.potion.PotionEffectType;
 
+@BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientBeacon extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.BEACON;
-    
-    public WrapperPlayClientBeacon() {
-        super(new PacketContainer(TYPE), TYPE);
-        handle.getModifier().writeDefaults();
-    }
-    
-    public WrapperPlayClientBeacon(PacketContainer packet) {
-        super(packet, TYPE);
-    }
-    
-    /**
-     * Retrieve Primary Effect.
-     * <p>
-     * Notes: a Potion ID. (Was a full Integer for the plugin message)
-     * @return The current Primary Effect
-     */
-    public int getPrimaryEffect() {
-        return handle.getIntegers().read(0);
-    }
-    
-    /**
-     * Set Primary Effect.
-     * @param value - new value.
-     */
-    public void setPrimaryEffect(int value) {
-        handle.getIntegers().write(0, value);
-    }
-    
-    /**
-     * Retrieve Secondary Effect.
-     * <p>
-     * Notes: a Potion ID. (Was a full Integer for the plugin message)
-     * @return The current Secondary Effect
-     */
-    public int getSecondaryEffect() {
-        return handle.getIntegers().read(1);
-    }
-    
-    /**
-     * Set Secondary Effect.
-     * @param value - new value.
-     */
-    public void setSecondaryEffect(int value) {
-        handle.getIntegers().write(1, value);
-    }
-    
+	public static final PacketType TYPE = PacketType.Play.Client.BEACON;
+
+	public WrapperPlayClientBeacon() {
+		super(new PacketContainer(TYPE), TYPE);
+		handle.getModifier().writeDefaults();
+	}
+
+	public WrapperPlayClientBeacon(PacketContainer packet) {
+		super(packet, TYPE);
+	}
+
+	/**
+	 * Retrieve Primary Effect.
+	 * <p>
+	 * Notes: a Potion ID. (Was a full Integer for the plugin message)
+	 * @return The current Primary Effect
+	 */
+	public int getPrimaryEffectId() {
+		return handle.getIntegers().read(0);
+	}
+
+	/**
+	 * Retrieve Primary Effect.
+	 * @return The current Primary Effect
+	 */
+	@SuppressWarnings("deprecation")
+	public PotionEffectType getPrimaryEffect() {
+		return PotionEffectType.getById(getPrimaryEffectId());
+	}
+
+	/**
+	 * Set Primary Effect.
+	 * @param value - new value.
+	 */
+	public void setPrimaryEffectId(int value) {
+		handle.getIntegers().write(0, value);
+	}
+
+	/**
+	 * Set Primary Effect.
+	 * @param value - new value.
+	 */
+	public void setPrimaryEffect(PotionEffectType value) {
+		setPrimaryEffectId(value.getId());
+	}
+
+	/**
+	 * Retrieve Secondary Effect.
+	 * <p>
+	 * Notes: a Potion ID. (Was a full Integer for the plugin message)
+	 * @return The current Secondary Effect
+	 */
+	public int getSecondaryEffectId() {
+		return handle.getIntegers().read(1);
+	}
+
+	/**
+	 * Retrieve Secondary Effect.
+	 * @return The current Secondary Effect
+	 */
+	@SuppressWarnings("deprecation")
+	public PotionEffectType getSecondaryEffect() {
+		return PotionEffectType.getById(getSecondaryEffectId());
+	}
+
+	/**
+	 * Set Secondary Effect.
+	 * @param value - new value.
+	 */
+	public void setSecondaryEffectId(int value) {
+		handle.getIntegers().write(1, value);
+	}
+
+	/**
+	 * Set Secondary Effect.
+	 * @param value - new value.
+	 */
+	@SuppressWarnings("deprecation")
+	public void setSecondaryEffect(PotionEffectType value) {
+		setPrimaryEffectId(value.getId());
+	}
 }
