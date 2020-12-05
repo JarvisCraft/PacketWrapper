@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientEnchantItem extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.ENCHANT_ITEM;
 
