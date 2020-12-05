@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientHeldItemSlot extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.HELD_ITEM_SLOT;
 
@@ -37,7 +39,7 @@ public class WrapperPlayClientHeldItemSlot extends AbstractPacket {
 	 * Retrieve Slot.
 	 * <p>
 	 * Notes: the slot which the player has selected (0-8)
-	 * 
+	 *
 	 * @return The current Slot
 	 */
 	public int getSlot() {
@@ -46,7 +48,7 @@ public class WrapperPlayClientHeldItemSlot extends AbstractPacket {
 
 	/**
 	 * Set Slot.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setSlot(int value) {
