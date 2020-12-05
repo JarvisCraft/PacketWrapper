@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible(sinceMinor = 12)
 public class WrapperPlayClientAutoRecipe extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.AUTO_RECIPE;
