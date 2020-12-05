@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientKeepAlive extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.KEEP_ALIVE;
 
@@ -39,7 +41,7 @@ public class WrapperPlayClientKeepAlive extends AbstractPacket {
 	 * @return The current Keep Alive ID
 	 */
 	public long getKeepAliveId() {
-		return handle.getLongs().read(0);
+		return MINOR_VERSION >= 13 ? handle.getLongs().read(0) : handle.getIntegers().read(0);
 	}
 
 	/**
@@ -48,7 +50,8 @@ public class WrapperPlayClientKeepAlive extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setKeepAliveId(long value) {
-		handle.getLongs().write(0, value);
+		if (MINOR_VERSION >= 13) handle.getLongs().write(0, value);
+		else handle.getIntegers().write(0, (int) value);
 	}
 
 }
