@@ -18,14 +18,15 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.MinecraftKey;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+@BackwardsCompatible
 public class WrapperPlayClientCustomPayload extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.CUSTOM_PAYLOAD;
 
@@ -38,21 +39,29 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
+	@BackwardsCompatible(untilMinor = 12)
+	public String getChannelName() {
+		return handle.getStrings().read(0);
+	}
+
+	@BackwardsCompatible(sinceMinor = 13)
 	public MinecraftKey getChannel() {
 		return handle.getMinecraftKeys().readSafely(0);
 	}
 
-	/**
-	 * Starting in 1.13, channel names need to be lower case, in the new identifier format,
-	 * i.e. {@code minecraft:brand}. The previously standard {@code |} is no longer allowed.
-	 */
+	@BackwardsCompatible(untilMinor = 12)
+	public void setChannelName(String value) {
+		handle.getStrings().write(0, value);
+	}
+
+	@BackwardsCompatible(sinceMinor = 13)
 	public void setChannel(MinecraftKey value) {
 		handle.getMinecraftKeys().writeSafely(0, value);
 	}
 
 	/**
 	 * Retrieve payload contents as a raw Netty buffer
-	 * 
+	 *
 	 * @return Payload contents as a Netty buffer
 	 */
 	public ByteBuf getContentsBuffer() {
@@ -61,7 +70,7 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 
 	/**
 	 * Retrieve payload contents
-	 * 
+	 *
 	 * @return Payload contents as a byte array
 	 */
 	public byte[] getContents() {
@@ -73,7 +82,7 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 
 	/**
 	 * Update payload contents with a Netty buffer
-	 * 
+	 *
 	 * @param contents - new payload contents
 	 */
 	public void setContentsBuffer(ByteBuf contents) {
@@ -87,7 +96,7 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 
 	/**
 	 * Update payload contents with a byte array
-	 * 
+	 *
 	 * @param content - new payload content
 	 */
 	public void setContents(byte[] content) {
