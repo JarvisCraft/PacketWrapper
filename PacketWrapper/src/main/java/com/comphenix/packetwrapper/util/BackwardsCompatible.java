@@ -3,7 +3,8 @@ package com.comphenix.packetwrapper.util;
 import java.lang.annotation.*;
 
 /**
- * Marker indicating the target's backwards compatibility.
+ * Marker indicating the target is backwards compatible.
+ * If values are not set
  */
 @Documented
 @Retention(RetentionPolicy.SOURCE)
@@ -11,9 +12,16 @@ import java.lang.annotation.*;
 public @interface BackwardsCompatible {
 
     /**
-     * Gets the target's {@link BackwardsCompatibility backwards compatibility}.
+     * Gets the minimal supported minor minecraft version.
      *
-     * @return the target's backwards compatibility.
+     * @return minimal supported minor minecraft version
      */
-    BackwardsCompatibility value() default BackwardsCompatibility.FULL;
+    int sinceMinor() default 7;
+
+    /**
+     * Gets the maximal supported minor minecraft version.
+     *
+     * @return maximal supported minor minecraft version
+     */
+    int untilMinor() default Integer.MAX_VALUE;
 }
