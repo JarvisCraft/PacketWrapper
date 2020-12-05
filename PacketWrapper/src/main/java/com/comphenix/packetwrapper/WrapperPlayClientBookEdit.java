@@ -18,11 +18,14 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.inventory.ItemStack;
 
+@BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientBookEdit extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.B_EDIT;
@@ -68,5 +71,16 @@ public class WrapperPlayClientBookEdit extends AbstractPacket {
      */
     public void setIsSigning(boolean value) {
         handle.getBooleans().write(0, value);
+    }
+
+    public EnumWrappers.Hand getHand() {
+        return MINOR_VERSION >= 16
+                ? handle.getIntegers().read(0) == 0 ? EnumWrappers.Hand.MAIN_HAND : EnumWrappers.Hand.OFF_HAND
+                : handle.getHands().read(0);
+    }
+
+    public void setHand(EnumWrappers.Hand value) {
+        if (MINOR_VERSION >= 16) handle.getIntegers().write(0, value == EnumWrappers.Hand.MAIN_HAND ? 0 : 1);
+        else handle.getHands().write(0, value);
     }
 }
