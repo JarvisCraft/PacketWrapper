@@ -18,10 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.Difficulty;
 
+@BackwardsCompatible(sinceMinor = 14)
 public class WrapperPlayClientDifficultyChange extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.DIFFICULTY_CHANGE;
