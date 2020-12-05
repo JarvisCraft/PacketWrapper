@@ -18,6 +18,7 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
@@ -26,6 +27,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerAction;
 
+@BackwardsCompatible
 public class WrapperPlayClientEntityAction extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.ENTITY_ACTION;
 
