@@ -26,13 +26,17 @@ import com.comphenix.protocol.events.PacketContainer;
 public class WrapperPlayClientFlying extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.FLYING;
 
+	protected WrapperPlayClientFlying(PacketContainer handle, PacketType type) {
+		super(handle, type);
+	}
+
 	public WrapperPlayClientFlying() {
-		super(new PacketContainer(TYPE), TYPE);
+		this(new PacketContainer(TYPE), TYPE);
 		handle.getModifier().writeDefaults();
 	}
 
 	public WrapperPlayClientFlying(PacketContainer packet) {
-		super(packet, TYPE);
+		this(packet, TYPE);
 	}
 
 	public double getX() {
@@ -59,18 +63,42 @@ public class WrapperPlayClientFlying extends AbstractPacket {
 		handle.getDoubles().write(2, value);
 	}
 
-	public double getYaw() {
+	/**
+	 * Retrieve Yaw.
+	 * <p>
+	 * Notes: absolute rotation on the X Axis, in degrees
+	 *
+	 * @return The current Yaw
+	 */
+	public float getYaw() {
 		return handle.getFloat().read(0);
 	}
 
+	/**
+	 * Set Yaw.
+	 *
+	 * @param value - new value.
+	 */
 	public void setYaw(float value) {
 		handle.getFloat().write(0, value);
 	}
 
-	public double getPitch() {
+	/**
+	 * Retrieve Pitch.
+	 * <p>
+	 * Notes: absolute rotation on the Y Axis, in degrees
+	 *
+	 * @return The current Pitch
+	 */
+	public float getPitch() {
 		return handle.getFloat().read(1);
 	}
 
+	/**
+	 * Set Pitch.
+	 *
+	 * @param value - new value.
+	 */
 	public void setPitch(float value) {
 		handle.getFloat().write(1, value);
 	}
