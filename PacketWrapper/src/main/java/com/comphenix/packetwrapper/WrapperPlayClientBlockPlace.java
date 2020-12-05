@@ -1,4 +1,4 @@
-/**
+/*
  * PacketWrapper - ProtocolLib wrappers for Minecraft packets
  * Copyright (C) dmulloy2 <http://dmulloy2.net>
  * Copyright (C) Kristian S. Strangeland
@@ -49,5 +49,4 @@ public class WrapperPlayClientBlockPlace extends AbstractPacket {
 	public void setTimestamp(long value) {
 		handle.getLongs().write(0, value);
 	}
-
 }
