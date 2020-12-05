@@ -18,10 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
 
+@BackwardsCompatible(sinceMinor = 9)
 public class WrapperPlayClientBlockPlace extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.BLOCK_PLACE;
 
