@@ -16,7 +16,7 @@ public @interface BackwardsCompatible {
      *
      * @return minimal supported minor minecraft version
      */
-    int sinceMinor() default 7;
+    int sinceMinor() default 8;
 
     /**
      * Gets the maximal supported minor minecraft version.
