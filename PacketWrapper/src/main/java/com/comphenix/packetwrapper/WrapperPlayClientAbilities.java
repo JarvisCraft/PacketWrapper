@@ -46,7 +46,7 @@ public class WrapperPlayClientAbilities extends AbstractPacket {
 	 */
 	@Deprecated
 	public boolean isInvulnurable() {
-		return handle.getBooleans().read(0);
+		return isInvulnerable();
 	}
 
 	/**Misspelled.
@@ -54,7 +54,7 @@ public class WrapperPlayClientAbilities extends AbstractPacket {
 	 */
 	@Deprecated
 	public void setInvulnurable(boolean value) {
-		handle.getBooleans().write(0, value);
+		setInvulnerable(value);
 	}
 
 	public boolean isFlying() {

@@ -104,12 +104,7 @@ public abstract class AbstractPacket {
 	 */
 	@Deprecated
 	public void recievePacket(Player sender) {
-		try {
-			PROTOCOL_MANAGER.recieveClientPacket(sender,
-					getHandle());
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot recieve packet.", e);
-		}
+		receivePacket(sender);
 	}
 
 	/**

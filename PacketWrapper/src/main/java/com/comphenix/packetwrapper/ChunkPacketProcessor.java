@@ -187,21 +187,22 @@ public class ChunkPacketProcessor {
 	protected static final int CHUNK_SEGMENTS = 16;
 	protected static final int NIBBLES_REQUIRED = 4;
 
+	public static final int BLOCK_ID_LENGTH = 4096;
+
 	/**Misspelled.
 	 * @see #BLOCK_ID_LENGTH
 	 */
 	@Deprecated
-	public static final int BLOCK_ID_LENGHT = 4096;
+	public static final int BLOCK_ID_LENGHT = BLOCK_ID_LENGTH;
 
-	public static final int BLOCK_ID_LENGTH = 4096;
+	public static final int DATA_LENGTH = 2048;
 
     /**Misspelled.
      * @see #DATA_LENGTH
      */
 	@Deprecated
-	public static final int DATA_LENGHT = 2048;
+	public static final int DATA_LENGHT = DATA_LENGTH;
 
-    public static final int DATA_LENGTH = 2048;
 	public static final int BIOME_ARRAY_LENGTH = 256;
 
 	private int chunkX;

@@ -132,7 +132,7 @@ public class WrapperPlayServerExplosion extends AbstractPacket {
 	 */
 	@Deprecated
 	public List<BlockPosition> getRecors() {
-		return handle.getBlockPositionCollectionModifier().read(0);
+		return getRecords();
 	}
 
 	/**
