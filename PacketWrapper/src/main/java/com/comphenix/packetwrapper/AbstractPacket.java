@@ -30,7 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPacket {
 	// The packet we will be modifying
-	protected PacketContainer handle;
+	protected final PacketContainer handle;
 
 	protected static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 	protected static final MinecraftVersion VERSION = PROTOCOL_MANAGER.getMinecraftVersion();
