@@ -18,10 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.ClientCommand;
 
+@BackwardsCompatible
 public class WrapperPlayClientClientCommand extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.CLIENT_COMMAND;
 
@@ -38,7 +40,7 @@ public class WrapperPlayClientClientCommand extends AbstractPacket {
 	 * Retrieve Action ID.
 	 * <p>
 	 * Notes: see below
-	 * 
+	 *
 	 * @return The current Action ID
 	 */
 	public ClientCommand getAction() {
@@ -47,7 +49,7 @@ public class WrapperPlayClientClientCommand extends AbstractPacket {
 
 	/**
 	 * Set Action ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setAction(ClientCommand value) {
