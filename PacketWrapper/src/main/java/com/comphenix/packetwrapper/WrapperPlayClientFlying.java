@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientFlying extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.FLYING;
 
@@ -33,11 +35,51 @@ public class WrapperPlayClientFlying extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
+	public double getX() {
+		return handle.getDoubles().read(0);
+	}
+
+	public void setX(double value) {
+		handle.getDoubles().write(0, value);
+	}
+
+	public double getY() {
+		return handle.getDoubles().read(1);
+	}
+
+	public void setY(double value) {
+		handle.getDoubles().write(1, value);
+	}
+
+	public double getZ() {
+		return handle.getDoubles().read(2);
+	}
+
+	public void setZ(double value) {
+		handle.getDoubles().write(2, value);
+	}
+
+	public double getYaw() {
+		return handle.getFloat().read(0);
+	}
+
+	public void setYaw(float value) {
+		handle.getFloat().write(0, value);
+	}
+
+	public double getPitch() {
+		return handle.getFloat().read(1);
+	}
+
+	public void setPitch(float value) {
+		handle.getFloat().write(1, value);
+	}
+
 	/**
 	 * Retrieve On Ground.
 	 * <p>
 	 * Notes: true if the client is on the ground, False otherwise
-	 * 
+	 *
 	 * @return The current On Ground
 	 */
 	public boolean getOnGround() {
@@ -46,11 +88,27 @@ public class WrapperPlayClientFlying extends AbstractPacket {
 
 	/**
 	 * Set On Ground.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setOnGround(boolean value) {
 		handle.getBooleans().write(0, value);
+	}
+
+	public boolean getHasPos() {
+		return handle.getBooleans().read(1);
+	}
+
+	public void setHasPos(boolean value) {
+		handle.getBooleans().write(1, value);
+	}
+
+	public boolean getHasLook() {
+		return handle.getBooleans().read(2);
+	}
+
+	public void setHasLook(boolean value) {
+		handle.getBooleans().write(2, value);
 	}
 
 }
