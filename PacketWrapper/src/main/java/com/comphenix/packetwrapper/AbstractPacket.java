@@ -36,14 +36,14 @@ public abstract class AbstractPacket {
 	protected static final MinecraftVersion VERSION = PROTOCOL_MANAGER.getMinecraftVersion();
 	/*
 	 * Note that the following primitive fields are all `static final`
-	 * so that JIT can inline them and even perform folding
+	 * so that JIT can inline them and even perform static-folding
 	 */
 	protected static final int MAJOR_VERSION = VERSION.getMajor();
 	protected static final int MINOR_VERSION = VERSION.getMinor();
 	protected static final int VERSION_BUILD = VERSION.getBuild();
 
 	static {
-		if (MAJOR_VERSION != 1) throw new Error("Minecraft version " + VERSION + " is unsupported by major version");
+		if (MAJOR_VERSION != 1) throw new Error("Major Minecraft version " + VERSION + " is unsupported");
 	}
 
 	/**
