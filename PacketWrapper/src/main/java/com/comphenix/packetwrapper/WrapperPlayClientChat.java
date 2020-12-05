@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientChat extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.CHAT;
 
@@ -35,7 +37,7 @@ public class WrapperPlayClientChat extends AbstractPacket {
 
 	/**
 	 * Retrieve Message.
-	 * 
+	 *
 	 * @return The current Message
 	 */
 	public String getMessage() {
@@ -44,7 +46,7 @@ public class WrapperPlayClientChat extends AbstractPacket {
 
 	/**
 	 * Set Message.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setMessage(String value) {
