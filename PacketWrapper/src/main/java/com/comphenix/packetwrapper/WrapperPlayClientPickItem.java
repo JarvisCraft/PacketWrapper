@@ -18,38 +18,42 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientPickItem extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.PICK_ITEM;
-    
-    public WrapperPlayClientPickItem() {
-        super(new PacketContainer(TYPE), TYPE);
-        handle.getModifier().writeDefaults();
-    }
-    
-    public WrapperPlayClientPickItem(PacketContainer packet) {
-        super(packet, TYPE);
-    }
-    
-    /**
-     * Retrieve Slot to use.
-     * <p>
-     * Notes: see Inventory
-     * @return The current Slot to use
-     */
-    public int getSlotToUse() {
-        return handle.getIntegers().read(0);
-    }
-    
-    /**
-     * Set Slot to use.
-     * @param value - new value.
-     */
-    public void setSlotToUse(int value) {
-        handle.getIntegers().write(0, value);
-    }
-    
+	public static final PacketType TYPE = PacketType.Play.Client.PICK_ITEM;
+
+	public WrapperPlayClientPickItem() {
+		super(new PacketContainer(TYPE), TYPE);
+		handle.getModifier().writeDefaults();
+	}
+
+	public WrapperPlayClientPickItem(PacketContainer packet) {
+		super(packet, TYPE);
+	}
+
+	/**
+	 * Retrieve Slot to use.
+	 * <p>
+	 * Notes: see Inventory
+	 *
+	 * @return The current Slot to use
+	 */
+	public int getSlotToUse() {
+		return handle.getIntegers().read(0);
+	}
+
+	/**
+	 * Set Slot to use.
+	 *
+	 * @param value - new value.
+	 */
+	public void setSlotToUse(int value) {
+		handle.getIntegers().write(0, value);
+	}
+
 }
