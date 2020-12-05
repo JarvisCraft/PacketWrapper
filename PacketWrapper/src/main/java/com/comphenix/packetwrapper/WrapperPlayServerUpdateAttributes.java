@@ -29,8 +29,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedAttribute;
 
 public class WrapperPlayServerUpdateAttributes extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.UPDATE_ATTRIBUTES;
+	public static final PacketType TYPE = PacketType.Play.Server.UPDATE_ATTRIBUTES;
 
 	public WrapperPlayServerUpdateAttributes() {
 		super(new PacketContainer(TYPE), TYPE);

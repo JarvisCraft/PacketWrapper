@@ -45,7 +45,7 @@ public class WrapperPlayServerAttachEntity extends AbstractPacket {
 	 * @return The current Entity ID
 	 */
 	public int getEntityID() {
-		return handle.getIntegers().read(0);
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 0 : 1);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class WrapperPlayServerAttachEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
-		handle.getIntegers().write(0, value);
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 0 : 1, value);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class WrapperPlayServerAttachEntity extends AbstractPacket {
 	 * @return The spawned entity.
 	 */
 	public Entity getEntity(World world) {
-		return handle.getEntityModifier(world).read(0);
+		return handle.getEntityModifier(world).read(MINOR_VERSION > 8 ? 0 : 1);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class WrapperPlayServerAttachEntity extends AbstractPacket {
 	 * @return The current Vehicle ID
 	 */
 	public int getVehicleId() {
-		return handle.getIntegers().read(1);
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 1 : 2);
 	}
 
 	/**
@@ -94,6 +94,6 @@ public class WrapperPlayServerAttachEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVehicleId(int value) {
-		handle.getIntegers().write(1, value);
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 1 : 2, value);
 	}
 }

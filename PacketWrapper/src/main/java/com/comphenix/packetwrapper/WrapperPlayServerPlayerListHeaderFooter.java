@@ -23,8 +23,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class WrapperPlayServerPlayerListHeaderFooter extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER;
+	public static final PacketType TYPE = PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER;
 
 	public WrapperPlayServerPlayerListHeaderFooter() {
 		super(new PacketContainer(TYPE), TYPE);

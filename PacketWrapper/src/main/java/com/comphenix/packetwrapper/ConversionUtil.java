@@ -18,39 +18,24 @@
  */
 package com.comphenix.packetwrapper;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
+/**
+ * Faster conversions based on those used by Minecraft server which are required for packet dada conversions.
+ */
+public final class ConversionUtil {
 
-public class WrapperLoginServerSetCompression extends AbstractPacket {
-	public static final PacketType TYPE = PacketType.Login.Server.SET_COMPRESSION;
+    private ConversionUtil() {
+        throw new IllegalStateException("No instances of ConversionUtil for you");
+    }
 
-	public WrapperLoginServerSetCompression() {
-		super(new PacketContainer(TYPE), TYPE);
-		handle.getModifier().writeDefaults();
-	}
+    /**
+     * Performs a fast flooring operation on a double.
+     *
+     * @param number number to floor to int
+     * @return number floored
+     */
+    public static int floor(double number) {
+        int intNumber = (int) number;
 
-	public WrapperLoginServerSetCompression(PacketContainer packet) {
-		super(packet, TYPE);
-	}
-
-	/**
-	 * Retrieve Threshold.
-	 * <p>
-	 * Notes: threshold is the max size of a packet before its compressed
-	 * 
-	 * @return The current Threshold
-	 */
-	public int getThreshold() {
-		return handle.getIntegers().read(0);
-	}
-
-	/**
-	 * Set Threshold.
-	 * 
-	 * @param value - new value.
-	 */
-	public void setThreshold(int value) {
-		handle.getIntegers().write(0, value);
-	}
-
+        return number < (double) intNumber ? intNumber - 1 : intNumber;
+    }
 }

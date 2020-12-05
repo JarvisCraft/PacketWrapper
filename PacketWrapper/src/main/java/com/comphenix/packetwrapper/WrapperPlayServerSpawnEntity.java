@@ -25,11 +25,14 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.injector.PacketConstructor;
 import com.comphenix.protocol.reflect.IntEnum;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+
+import java.util.UUID;
 
 public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY;
@@ -101,7 +104,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 			int objectData) {
 		if (entityConstructor == null)
 			entityConstructor =
-					ProtocolLibrary.getProtocolManager()
+					PROTOCOL_MANAGER
 							.createPacketConstructor(TYPE, entity, type,
 									objectData);
 		return entityConstructor.createPacket(entity, type, objectData);
@@ -146,11 +149,13 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	}
 
 	public UUID getUniqueId() {
-		return handle.getUUIDs().read(0);
+		if (MINOR_VERSION > 8) return handle.getUUIDs().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setUniqueId(UUID value) {
-		handle.getUUIDs().write(0, value);
+		if (MINOR_VERSION > 8) handle.getUUIDs().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
@@ -161,7 +166,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current X
 	 */
 	public double getX() {
-		return handle.getDoubles().read(0);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(0) : handle.getIntegers().read(1) / 32.0D;
 	}
 
 	/**
@@ -170,7 +175,8 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
-		handle.getDoubles().write(0, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(0, value);
+		else handle.getIntegers().write(1, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -181,7 +187,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current y
 	 */
 	public double getY() {
-		return handle.getDoubles().read(1);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(1) : handle.getIntegers().read(2) / 32.0D;
 	}
 
 	/**
@@ -190,7 +196,8 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
-		handle.getDoubles().write(1, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(1, value);
+		else handle.getIntegers().write(2, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -201,7 +208,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current z
 	 */
 	public double getZ() {
-		return handle.getDoubles().read(2);
+		return MINOR_VERSION > 8 ? handle.getDoubles().read(2) : handle.getIntegers().read(3) / 32.0D;
 	}
 
 	/**
@@ -210,7 +217,8 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
-		handle.getDoubles().write(2, value);
+		if (MINOR_VERSION > 8) handle.getDoubles().write(2, value);
+		else handle.getIntegers().write(3, ConversionUtil.floor(value * 32.0D));
 	}
 
 	/**
@@ -221,7 +229,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The optional speed x.
 	 */
 	public double getOptionalSpeedX() {
-		return handle.getIntegers().read(1) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 1 : 4) / 8000.0D;
 	}
 
 	/**
@@ -230,7 +238,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOptionalSpeedX(double value) {
-		handle.getIntegers().write(1, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 1 : 4, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -241,7 +249,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The optional speed y.
 	 */
 	public double getOptionalSpeedY() {
-		return handle.getIntegers().read(2) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 2 : 5) / 8000.0D;
 	}
 
 	/**
@@ -250,7 +258,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOptionalSpeedY(double value) {
-		handle.getIntegers().write(2, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 2 : 5, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -261,7 +269,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The optional speed z.
 	 */
 	public double getOptionalSpeedZ() {
-		return handle.getIntegers().read(3) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION > 8 ? 3 : 6) / 8000.0D;
 	}
 
 	/**
@@ -270,7 +278,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOptionalSpeedZ(double value) {
-		handle.getIntegers().write(3, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 3 : 6, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -279,7 +287,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current pitch.
 	 */
 	public float getPitch() {
-		return (handle.getIntegers().read(4) * 360.F) / 256.0F;
+		return (handle.getIntegers().read(MINOR_VERSION > 8 ? 4 : 7) * 360.F) / 256.0F;
 	}
 
 	/**
@@ -288,7 +296,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new pitch.
 	 */
 	public void setPitch(float value) {
-		handle.getIntegers().write(4, (int) (value * 256.0F / 360.0F));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 4 : 7, (int) (value * 256.0F / 360.0F));
 	}
 
 	/**
@@ -297,7 +305,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current Yaw
 	 */
 	public float getYaw() {
-		return (handle.getIntegers().read(5) * 360.F) / 256.0F;
+		return (handle.getIntegers().read(MINOR_VERSION > 8 ? 5 : 8) * 360.F) / 256.0F;
 	}
 
 	/**
@@ -306,7 +314,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new yaw.
 	 */
 	public void setYaw(float value) {
-		handle.getIntegers().write(5, (int) (value * 256.0F / 360.0F));
+		handle.getIntegers().write(MINOR_VERSION > 8 ? 5 : 8, (int) (value * 256.0F / 360.0F));
 	}
 
 	/**
@@ -315,7 +323,9 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current Type
 	 */
 	public EntityType getType() {
-		return handle.getEntityTypeModifier().read(0);
+		return MINOR_VERSION >= 14
+      ? handle.getEntityTypeModifier().read(0)
+      : EntityType.fromId(handle.getIntegers().read(MINOR_VERSION >= 9 ? 6 : 9));
 	}
 
 	/**
@@ -324,7 +334,8 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setType(EntityType value) {
-		handle.getEntityTypeModifier().write(0, value);
+    if (MINOR_VERSION >= 14) handle.getEntityTypeModifier().write(0, value);
+    else handle.getIntegers().write(MINOR_VERSION >= 9 ? 6 : 9, value);
 	}
 
 	/**
@@ -362,7 +373,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current object Data
 	 */
 	public int getObjectData() {
-		return handle.getIntegers().read(6);
+		return handle.getIntegers().read(MINOR_VERSION >= 14 ? 6 : MINOR_VERSION >= 9 ? 7 : 10);
 	}
 
 	/**
@@ -374,6 +385,6 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new object data.
 	 */
 	public void setObjectData(int value) {
-		handle.getIntegers().write(6, value);
+		handle.getIntegers().write(MINOR_VERSION >= 14 ? 6 : MINOR_VERSION >= 9 ? 7 : 10, value);
 	}
 }

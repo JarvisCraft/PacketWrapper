@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerEntityVelocity extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.ENTITY_VELOCITY;
+	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_VELOCITY;
 
 	public WrapperPlayServerEntityVelocity() {
 		super(new PacketContainer(TYPE), TYPE);

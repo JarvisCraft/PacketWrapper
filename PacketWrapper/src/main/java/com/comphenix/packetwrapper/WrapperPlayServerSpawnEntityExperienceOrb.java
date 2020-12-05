@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB;
+	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB;
 
 	public WrapperPlayServerSpawnEntityExperienceOrb() {
 		super(new PacketContainer(TYPE), TYPE);

@@ -24,8 +24,7 @@ import com.comphenix.protocol.reflect.IntEnum;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class WrapperPlayServerScoreboardObjective extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SCOREBOARD_OBJECTIVE;
+	public static final PacketType TYPE = PacketType.Play.Server.SCOREBOARD_OBJECTIVE;
 
 	public WrapperPlayServerScoreboardObjective() {
 		super(new PacketContainer(TYPE), TYPE);

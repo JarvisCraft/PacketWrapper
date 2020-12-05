@@ -28,8 +28,7 @@ import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.EnumWrappers.Direction;
 
 public class WrapperPlayServerSpawnEntityPainting extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SPAWN_ENTITY_PAINTING;
+	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_PAINTING;
 
 	public WrapperPlayServerSpawnEntityPainting() {
 		super(new PacketContainer(TYPE), TYPE);

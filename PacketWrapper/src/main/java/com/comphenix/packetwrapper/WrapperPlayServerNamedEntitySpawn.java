@@ -31,8 +31,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.NAMED_ENTITY_SPAWN;
+	public static final PacketType TYPE = PacketType.Play.Server.NAMED_ENTITY_SPAWN;
 
 	public WrapperPlayServerNamedEntitySpawn() {
 		super(new PacketContainer(TYPE), TYPE);

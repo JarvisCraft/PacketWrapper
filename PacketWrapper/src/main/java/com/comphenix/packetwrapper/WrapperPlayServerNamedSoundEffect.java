@@ -25,8 +25,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.SoundCategory;
 
 public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.NAMED_SOUND_EFFECT;
+	public static final PacketType TYPE = PacketType.Play.Server.NAMED_SOUND_EFFECT;
 
 	public WrapperPlayServerNamedSoundEffect() {
 		super(new PacketContainer(TYPE), TYPE);
@@ -37,87 +36,81 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
-	public Sound getSoundEffect() {
+	public Sound getSound() {
 		return handle.getSoundEffects().read(0);
 	}
 
-	public void setSoundEffect(Sound value) {
+	public void setSound(Sound value) {
 		handle.getSoundEffects().write(0, value);
 	}
 
 	public SoundCategory getSoundCategory() {
-		return handle.getSoundCategories().read(0);
+		if (MINOR_VERSION > 8) return handle.getSoundCategories().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setSoundCategory(SoundCategory value) {
-		handle.getSoundCategories().write(0, value);
+		if (MINOR_VERSION > 8) handle.getSoundCategories().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
 	 * Retrieve Effect position X.
-	 * <p>
-	 * Notes: effect X multiplied by 8
-	 * 
+	 *
 	 * @return The current Effect position X
 	 */
-	public int getEffectPositionX() {
-		return handle.getIntegers().read(0);
+	public double getX() {
+		return handle.getIntegers().read(0) / 8D;
 	}
 
 	/**
 	 * Set Effect position X.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionX(int value) {
-		handle.getIntegers().write(0, value);
+	public void setX(double value) {
+		handle.getIntegers().write(0, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Effect position Y.
-	 * <p>
-	 * Notes: effect Y multiplied by 8
-	 * 
+	 *
 	 * @return The current Effect position Y
 	 */
-	public int getEffectPositionY() {
-		return handle.getIntegers().read(1);
+	public double getY() {
+		return handle.getIntegers().read(1) / 8D;
 	}
 
 	/**
 	 * Set Effect position Y.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionY(int value) {
-		handle.getIntegers().write(1, value);
+	public void setY(double value) {
+		handle.getIntegers().write(1, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Effect position Z.
-	 * <p>
-	 * Notes: effect Z multiplied by 8
-	 * 
+	 *
 	 * @return The current Effect position Z
 	 */
-	public int getEffectPositionZ() {
-		return handle.getIntegers().read(2);
+	public double getZ() {
+		return handle.getIntegers().read(2) / 8D;
 	}
 
 	/**
 	 * Set Effect position Z.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setEffectPositionZ(int value) {
-		handle.getIntegers().write(2, value);
+	public void setZ(double value) {
+		handle.getIntegers().write(2, (int) (value * 8));
 	}
 
 	/**
 	 * Retrieve Volume.
-	 * <p>
-	 * Notes: 1 is 100%, can be more
-	 * 
+	 *
 	 * @return The current Volume
 	 */
 	public float getVolume() {
@@ -126,7 +119,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Set Volume.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVolume(float value) {
@@ -135,13 +128,12 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 
 	/**
 	 * Retrieve Pitch.
-	 * <p>
-	 * Notes: 63 is 100%, can be more
-	 * 
+	 *
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
-		return handle.getFloat().read(1);
+		if (MINOR_VERSION > 8) return handle.getFloat().read(1);
+		return handle.getIntegers().read(3) / 63F;
 	}
 
 	/**
@@ -150,7 +142,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setPitch(float value) {
-		handle.getFloat().write(1, value);
+		if (MINOR_VERSION > 8) handle.getFloat().write(1, value);
+		else handle.getIntegers().write(3, (int) (value * 63));
 	}
-
 }

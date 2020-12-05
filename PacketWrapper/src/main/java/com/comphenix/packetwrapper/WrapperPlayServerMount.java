@@ -98,10 +98,9 @@ public class WrapperPlayServerMount extends AbstractPacket {
 	public List<Entity> getPassengers(World world) {
 		int[] ids = getPassengerIds();
 		List<Entity> passengers = new ArrayList<>();
-		ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
 		for (int id : ids) {
-			Entity entity = manager.getEntityFromID(world, id);
+			Entity entity = PROTOCOL_MANAGER.getEntityFromID(world, id);
 			if (entity != null) {
 				passengers.add(entity);
 			}

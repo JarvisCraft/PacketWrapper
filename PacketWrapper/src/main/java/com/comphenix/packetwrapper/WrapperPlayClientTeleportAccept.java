@@ -23,8 +23,7 @@ import com.comphenix.protocol.events.PacketContainer;
 
 public class WrapperPlayClientTeleportAccept extends AbstractPacket {
 
-	public static final PacketType TYPE =
-			PacketType.Play.Client.TELEPORT_ACCEPT;
+	public static final PacketType TYPE = PacketType.Play.Client.TELEPORT_ACCEPT;
 
 	public WrapperPlayClientTeleportAccept() {
 		super(new PacketContainer(TYPE), TYPE);

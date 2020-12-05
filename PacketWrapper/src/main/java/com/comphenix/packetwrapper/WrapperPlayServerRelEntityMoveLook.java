@@ -26,8 +26,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
 public class WrapperPlayServerRelEntityMoveLook extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.REL_ENTITY_MOVE_LOOK;
+	public static final PacketType TYPE = PacketType.Play.Server.REL_ENTITY_MOVE_LOOK;
 
 	public WrapperPlayServerRelEntityMoveLook() {
 		super(new PacketContainer(TYPE), TYPE);
@@ -78,111 +77,87 @@ public class WrapperPlayServerRelEntityMoveLook extends AbstractPacket {
 		return getEntity(event.getPlayer().getWorld());
 	}
 
-	/**
-	 * Retrieve DX.
-	 * 
-	 * @return The current DX
-	 */
+	@Override
 	public double getDx() {
+/* TODO(begin) */
 		return handle.getShorts().read(0) / 4096D;
+/* TODO(mid) */
+		return super.getDx();
+/* TODO(end) */
 	}
 
-	/**
-	 * Set DX.
-	 *
-	 * @param value - new value.
-	 */
+	@Override
 	public void setDx(double value) {
+/* TODO(begin) */
 		handle.getShorts().write(0, (short) (value * 4096));
+/* TODO(mid) */
+		super.setDx(value);
+/* TODO(end) */
 	}
 
-	/**
-	 * Retrieve DY.
-	 *
-	 * @return The current DY
-	 */
+	@Override
 	public double getDy() {
+/* TODO(begin) */
 		return handle.getShorts().read(1) / 4096D;
+/* TODO(mid) */
+		return super.getDy();
+/* TODO(end) */
 	}
 
-	/**
-	 * Set DY.
-	 *
-	 * @param value - new value.
-	 */
+	@Override
 	public void setDy(double value) {
+/* TODO(begin) */
 		handle.getShorts().write(1, (short) (value * 4096));
+/* TODO(mid) */
+		super.setDy(value);
+/* TODO(end) */
 	}
 
-	/**
-	 * Retrieve DZ.
-	 *
-	 * @return The current DZ
-	 */
+	@Override
 	public double getDz() {
+/* TODO(begin) */
 		return handle.getShorts().read(2) / 4096D;
+/* TODO(mid) */
+		return super.getDz();
+/* TODO(end) */
 	}
 
-	/**
-	 * Set DZ.
-	 *
-	 * @param value - new value.
-	 */
+	@Override
 	public void setDz(double value) {
+/* TODO(begin) */
 		handle.getShorts().write(2, (short) (value * 4096));
+/* TODO(mid) */
+		super.setDz(value);
+/* TODO(end) */
 	}
 
-	/**
-	 * Retrieve the yaw of the current entity.
-	 * 
-	 * @return The current Yaw
-	 */
+	@Override
 	public float getYaw() {
-		return (handle.getBytes().read(0) * 360.F) / 256.0F;
+		return super.getYaw();
 	}
 
-	/**
-	 * Set the yaw of the current entity.
-	 * 
-	 * @param value - new yaw.
-	 */
+	@Override
 	public void setYaw(float value) {
-		handle.getBytes().write(0, (byte) (value * 256.0F / 360.0F));
+		super.setYaw(value);
 	}
 
-	/**
-	 * Retrieve the pitch of the current entity.
-	 * 
-	 * @return The current pitch
-	 */
+	@Override
 	public float getPitch() {
-		return (handle.getBytes().read(1) * 360.F) / 256.0F;
+		return super.getPitch();
 	}
 
-	/**
-	 * Set the pitch of the current entity.
-	 * 
-	 * @param value - new pitch.
-	 */
+	@Override
 	public void setPitch(float value) {
-		handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
+		super.setPitch(value);
 	}
 
-	/**
-	 * Retrieve On Ground.
-	 * 
-	 * @return The current On Ground
-	 */
+	@Override
 	public boolean getOnGround() {
-		return handle.getBooleans().read(0);
+		return super.getOnGround();
 	}
 
-	/**
-	 * Set On Ground.
-	 * 
-	 * @param value - new value.
-	 */
+	@Override
 	public void setOnGround(boolean value) {
-		handle.getBooleans().write(0, value);
+		super.setOnGround(value);
 	}
 }

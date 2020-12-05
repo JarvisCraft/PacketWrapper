@@ -30,8 +30,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import org.bukkit.ChatColor;
 
 public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.SCOREBOARD_TEAM;
+	public static final PacketType TYPE = PacketType.Play.Server.SCOREBOARD_TEAM;
 
 	public WrapperPlayServerScoreboardTeam() {
 		super(new PacketContainer(TYPE), TYPE);

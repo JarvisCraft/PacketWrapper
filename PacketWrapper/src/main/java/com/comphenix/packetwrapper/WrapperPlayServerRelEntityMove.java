@@ -18,16 +18,14 @@
  */
 package com.comphenix.packetwrapper;
 
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 
 public class WrapperPlayServerRelEntityMove extends AbstractPacket {
-	public static final PacketType TYPE =
-			PacketType.Play.Server.REL_ENTITY_MOVE;
+	public static final PacketType TYPE = PacketType.Play.Server.REL_ENTITY_MOVE;
 
 	public WrapperPlayServerRelEntityMove() {
 		super(new PacketContainer(TYPE), TYPE);
@@ -78,6 +76,7 @@ public class WrapperPlayServerRelEntityMove extends AbstractPacket {
 		return getEntity(event.getPlayer().getWorld());
 	}
 
+/* TODO(begin) */
 	/**
 	 * Retrieve DX.
 	 *
@@ -173,8 +172,41 @@ public class WrapperPlayServerRelEntityMove extends AbstractPacket {
 	 *
 	 * @return The current On Ground
 	 */
-	public boolean getOnGround() {
-		return handle.getBooleans().read(0);
+/* TODO(mid) */
+	@Override
+	public double getDx() {
+		return super.getDx();
+	}
+
+	@Override
+	public void setDx(double value) {
+		super.setDx(value);
+	}
+
+	@Override
+	public double getDy() {
+		return super.getDy();
+	}
+
+	@Override
+	public void setDy(double value) {
+		super.setDy(value);
+	}
+
+	@Override
+	public double getDz() {
+		return super.getDz();
+	}
+
+	@Override
+	public void setDz(double value) {
+		super.setDz(value);
+	}
+
+	@Override
+/* TODO(end) */
+  public boolean getOnGround() {
+		return super.getOnGround();
 	}
 
 	/**
@@ -183,6 +215,6 @@ public class WrapperPlayServerRelEntityMove extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOnGround(boolean value) {
-		handle.getBooleans().write(0, value);
+		super.setOnGround(value);
 	}
 }
