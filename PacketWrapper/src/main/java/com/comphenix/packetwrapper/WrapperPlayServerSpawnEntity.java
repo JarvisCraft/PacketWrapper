@@ -18,6 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
+import java.util.UUID;
+
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -316,8 +322,10 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * 
 	 * @return The current Type
 	 */
-	public int getType() {
-		return handle.getIntegers().read(MINOR_VERSION > 8 ? 6 : 9);
+	public EntityType getType() {
+		return MINOR_VERSION >= 14
+      ? handle.getEntityTypeModifier().read(0)
+      : EntityType.fromId(handle.getIntegers().read(MINOR_VERSION >= 9 ? 6 : 9));
 	}
 
 	/**
@@ -325,8 +333,9 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
-	public void setType(int value) {
-		handle.getIntegers().write(MINOR_VERSION > 8 ? 6 : 9, value);
+	public void setType(EntityType value) {
+    if (MINOR_VERSION >= 14) handle.getEntityTypeModifier().write(0, value);
+    else handle.getIntegers().write(MINOR_VERSION >= 9 ? 6 : 9, value);
 	}
 
 	/**
@@ -364,7 +373,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @return The current object Data
 	 */
 	public int getObjectData() {
-		return handle.getIntegers().read(MINOR_VERSION > 8 ? 7 : 10);
+		return handle.getIntegers().read(MINOR_VERSION >= 14 ? 6 : MINOR_VERSION >= 9 ? 7 : 10);
 	}
 
 	/**
@@ -376,6 +385,6 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 * @param value - new object data.
 	 */
 	public void setObjectData(int value) {
-		handle.getIntegers().write(MINOR_VERSION > 8 ? 7 : 10, value);
+		handle.getIntegers().write(MINOR_VERSION >= 14 ? 6 : MINOR_VERSION >= 9 ? 7 : 10, value);
 	}
 }

@@ -59,8 +59,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @return The current X
 	 */
-	public float getX() {
-		return handle.getFloat().read(0);
+	public double getX() {
+		return handle.getDoubles().read(0);
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
-	public void setX(float value) {
-		handle.getFloat().write(0, value);
+	public void setX(double value) {
+		handle.getDoubles().write(0, value);
 	}
 
 	/**
@@ -79,8 +79,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @return The current Y
 	 */
-	public float getY() {
-		return handle.getFloat().read(1);
+	public double getY() {
+		return handle.getDoubles().read(1);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
-	public void setY(float value) {
-		handle.getFloat().write(1, value);
+	public void setY(double value) {
+		handle.getDoubles().write(1, value);
 	}
 
 	/**
@@ -99,8 +99,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @return The current Z
 	 */
-	public float getZ() {
-		return handle.getFloat().read(2);
+	public double getZ() {
+		return handle.getDoubles().read(2);
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
-	public void setZ(float value) {
-		handle.getFloat().write(2, value);
+	public void setZ(double value) {
+		handle.getDoubles().write(2, value);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @return The current Offset X
 	 */
 	public float getOffsetX() {
-		return handle.getFloat().read(3);
+		return handle.getFloat().read(0);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOffsetX(float value) {
-		handle.getFloat().write(3, value);
+		handle.getFloat().write(0, value);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @return The current Offset Y
 	 */
 	public float getOffsetY() {
-		return handle.getFloat().read(4);
+		return handle.getFloat().read(1);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOffsetY(float value) {
-		handle.getFloat().write(4, value);
+		handle.getFloat().write(1, value);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @return The current Offset Z
 	 */
 	public float getOffsetZ() {
-		return handle.getFloat().read(5);
+		return handle.getFloat().read(2);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setOffsetZ(float value) {
-		handle.getFloat().write(5, value);
+		handle.getFloat().write(2, value);
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @return The current Particle data
 	 */
 	public float getParticleData() {
-		return handle.getFloat().read(6);
+		return handle.getFloat().read(3);
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setParticleData(float value) {
-		handle.getFloat().write(6, value);
+		handle.getFloat().write(3, value);
 	}
 
 	/**

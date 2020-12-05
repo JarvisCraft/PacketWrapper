@@ -24,6 +24,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
+import com.comphenix.packetwrapper.util.Removed;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -188,6 +189,7 @@ public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
 	 * 
 	 * @return The current Metadata
 	 */
+	@Removed
 	public WrappedDataWatcher getMetadata() {
 		return handle.getDataWatcherModifier().read(0);
 	}
@@ -197,6 +199,7 @@ public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
 	 * 
 	 * @param value - new value.
 	 */
+	@Removed
 	public void setMetadata(WrappedDataWatcher value) {
 		handle.getDataWatcherModifier().write(0, value);
 	}
