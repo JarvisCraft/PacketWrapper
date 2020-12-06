@@ -45,12 +45,12 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	}
 
 	public SoundCategory getSoundCategory() {
-		if (MINOR_VERSION > 8) return handle.getSoundCategories().read(0);
+		if (MINOR_VERSION >= 9) return handle.getSoundCategories().read(0);
 		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setSoundCategory(SoundCategory value) {
-		if (MINOR_VERSION > 8) handle.getSoundCategories().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getSoundCategories().write(0, value);
 		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
@@ -132,7 +132,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
-		if (MINOR_VERSION > 8) return handle.getFloat().read(1);
+		if (MINOR_VERSION >= 9) return handle.getFloat().read(1);
 		return handle.getIntegers().read(3) / 63F;
 	}
 
@@ -142,7 +142,7 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setPitch(float value) {
-		if (MINOR_VERSION > 8) handle.getFloat().write(1, value);
+		if (MINOR_VERSION >= 9) handle.getFloat().write(1, value);
 		else handle.getIntegers().write(3, (int) (value * 63));
 	}
 }

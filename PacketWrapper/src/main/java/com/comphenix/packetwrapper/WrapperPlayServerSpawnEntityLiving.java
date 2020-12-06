@@ -18,21 +18,39 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.util.UUID;
-
+import com.comphenix.packetwrapper.util.Removed;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.injector.PacketConstructor;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
-import com.comphenix.packetwrapper.util.Removed;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.injector.PacketConstructor;
-import com.comphenix.protocol.utility.MinecraftVersion;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import java.util.UUID;
 
+/*
+ * public PacketPlayOutSpawnEntityLiving(EntityLiving var0) {
+ *     this.a = var0.getId();
+ *     this.b = var0.getUniqueID();
+ *     this.c = IRegistry.ENTITY_TYPE.a(var0.getEntityType());
+ *     this.d = var0.locX();
+ *     this.e = var0.locY();
+ *     this.f = var0.locZ();
+ *     this.j = (byte)(int)(var0.yaw * 256.0F / 360.0F);
+ *     this.k = (byte)(int)(var0.pitch * 256.0F / 360.0F);
+ *     this.l = (byte)(int)(var0.aC * 256.0F / 360.0F);
+ *     double var1 = 3.9D;
+ *     Vec3D var3 = var0.getMot();
+ *     double var4 = MathHelper.a(var3.x, -3.9D, 3.9D);
+ *     double var6 = MathHelper.a(var3.y, -3.9D, 3.9D);
+ *     double var8 = MathHelper.a(var3.z, -3.9D, 3.9D);
+ *     this.g = (int)(var4 * 8000.0D);
+ *     this.h = (int)(var6 * 8000.0D);
+ *     this.i = (int)(var8 * 8000.0D);
+ * }
+ */
 public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_LIVING;
 
@@ -54,9 +72,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	// Useful constructor
 	private static PacketContainer fromEntity(Entity entity) {
 		if (entityConstructor == null)
-			entityConstructor =
-					PROTOCOL_MANAGER
-							.createPacketConstructor(TYPE, entity);
+			entityConstructor = PROTOCOL_MANAGER.createPacketConstructor(TYPE, entity);
 		return entityConstructor.createPacket(entity);
 	}
 
@@ -90,12 +106,12 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	}
 
 	public UUID getUniqueId() {
-		if (MINOR_VERSION > 8) return handle.getUUIDs().read(0);
+		if (MINOR_VERSION >= 9) return handle.getUUIDs().read(0);
 		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setUniqueId(UUID value) {
-		if (MINOR_VERSION > 8) handle.getUUIDs().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getUUIDs().write(0, value);
 		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
@@ -136,7 +152,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current X
 	 */
 	public double getX() {
-		return MINOR_VERSION > 8 ? handle.getDoubles().read(0) : handle.getIntegers().read(2) / 32.0D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(0) : handle.getIntegers().read(2) / 32.0D;
 	}
 
 	/**
@@ -145,7 +161,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
-		if (MINOR_VERSION > 8) handle.getDoubles().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(0, value);
 		else handle.getIntegers().write(2, ConversionUtil.floor(value * 32.0D));
 	}
 
@@ -157,7 +173,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current y
 	 */
 	public double getY() {
-		return MINOR_VERSION > 8 ? handle.getDoubles().read(1) : handle.getIntegers().read(3) / 32.0D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(1) : handle.getIntegers().read(3) / 32.0D;
 	}
 
 	/**
@@ -166,7 +182,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
-		if (MINOR_VERSION > 8) handle.getDoubles().write(1, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(1, value);
 		else handle.getIntegers().write(3, ConversionUtil.floor(value * 32.0D));
 	}
 
@@ -178,7 +194,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current z
 	 */
 	public double getZ() {
-		return MINOR_VERSION > 8 ? handle.getDoubles().read(2) : handle.getIntegers().read(4) / 32.0D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(2) : handle.getIntegers().read(4) / 32.0D;
 	}
 
 	/**
@@ -187,7 +203,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
-		if (MINOR_VERSION > 8) handle.getDoubles().write(2, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(2, value);
 		else handle.getIntegers().write(4, ConversionUtil.floor(value * 32.0D));
 	}
 
@@ -251,7 +267,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity X
 	 */
 	public double getVelocityX() {
-		return handle.getIntegers().read(MINOR_VERSION > 8 ? 2 : 5) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION >= 9 ? 2 : 5) / 8000.0D;
 	}
 
 	/**
@@ -260,7 +276,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityX(double value) {
-		handle.getIntegers().write(MINOR_VERSION > 8 ? 2 : 5, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 2 : 5, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -269,7 +285,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity y
 	 */
 	public double getVelocityY() {
-		return handle.getIntegers().read(MINOR_VERSION > 8 ? 3 : 6) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION >= 9 ? 3 : 6) / 8000.0D;
 	}
 
 	/**
@@ -278,7 +294,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityY(double value) {
-		handle.getIntegers().write(MINOR_VERSION > 8 ? 3 : 6, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 3 : 6, (int) (value * 8000.0D));
 	}
 
 	/**
@@ -287,7 +303,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @return The current velocity z
 	 */
 	public double getVelocityZ() {
-		return handle.getIntegers().read(MINOR_VERSION > 8 ? 4 : 7) / 8000.0D;
+		return handle.getIntegers().read(MINOR_VERSION >= 9 ? 4 : 7) / 8000.0D;
 	}
 
 	/**
@@ -296,7 +312,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setVelocityZ(double value) {
-		handle.getIntegers().write(MINOR_VERSION > 8 ? 4 : 7, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 4 : 7, (int) (value * 8000.0D));
 	}
 
 	/**

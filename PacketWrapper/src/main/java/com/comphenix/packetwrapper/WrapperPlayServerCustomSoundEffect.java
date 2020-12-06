@@ -25,7 +25,7 @@ import com.comphenix.protocol.wrappers.MinecraftKey;
 
 public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 
-	public static final PacketType TYPE = MINOR_VERSION > 8
+	public static final PacketType TYPE = MINOR_VERSION >= 9
 			? PacketType.Play.Server.CUSTOM_SOUND_EFFECT : PacketType.Play.Server.NAMED_SOUND_EFFECT;
 
 	public WrapperPlayServerCustomSoundEffect() {
@@ -45,7 +45,7 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * @return The current Sound Name
 	 */
 	public MinecraftKey getSound() {
-		return MINOR_VERSION > 8 ? handle.getMinecraftKeys().read(0) : new MinecraftKey(handle.getStrings().read(0));
+		return MINOR_VERSION >= 9 ? handle.getMinecraftKeys().read(0) : new MinecraftKey(handle.getStrings().read(0));
 	}
 
 	/**
@@ -54,17 +54,17 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setSound(MinecraftKey value) {
-		if (MINOR_VERSION > 8) handle.getMinecraftKeys().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getMinecraftKeys().write(0, value);
 		else handle.getStrings().write(0, value.getKey());
 	}
 
 	public SoundCategory getSoundCategory() {
-		if (MINOR_VERSION > 8) return handle.getSoundCategories().read(0);
+		if (MINOR_VERSION >= 9) return handle.getSoundCategories().read(0);
 		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	public void setSoundCategory(SoundCategory value) {
-		if (MINOR_VERSION > 8) handle.getSoundCategories().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getSoundCategories().write(0, value);
 		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
@@ -146,7 +146,7 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
-		if (MINOR_VERSION > 8) return handle.getFloat().read(1);
+		if (MINOR_VERSION >= 9) return handle.getFloat().read(1);
 		return handle.getIntegers().read(3) / 63F;
 	}
 
@@ -156,7 +156,7 @@ public class WrapperPlayServerCustomSoundEffect extends AbstractPacket {
 	 * @param value - new value
 	 */
 	public void setPitch(float value) {
-		if (MINOR_VERSION > 8) handle.getFloat().write(1, value);
+		if (MINOR_VERSION >= 9) handle.getFloat().write(1, value);
 		else handle.getIntegers().write(3, (int) (value * 63));
 	}
 }

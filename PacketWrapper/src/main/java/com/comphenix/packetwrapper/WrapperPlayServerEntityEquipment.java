@@ -85,14 +85,14 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	}
 
 	public ItemSlot getSlot() {
-		if (MINOR_VERSION > 8) return handle.getItemSlots().read(0);
+		if (MINOR_VERSION >= 9) return handle.getItemSlots().read(0);
 		int slot = handle.getIntegers().read(0);
 		if (slot >= ITEM_SLOTS.length) throw new IllegalArgumentException("Unknown item slot received: " + slot);
 		return ITEM_SLOTS[slot];
 	}
 
 	public void setSlot(ItemSlot value) {
-		if (MINOR_VERSION > 8) handle.getItemSlots().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getItemSlots().write(0, value);
 		else {
 			switch (value) {
 				case MAINHAND: {
