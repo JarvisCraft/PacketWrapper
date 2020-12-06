@@ -18,6 +18,7 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
@@ -25,6 +26,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 
+@BackwardsCompatible
 public class WrapperPlayServerEntity extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.ENTITY;
 
@@ -87,8 +89,9 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @return The current DX
 	 */
 	protected double getDx() {
-		if (MINOR_VERSION > 8) return handle.getIntegers().read(1) / 4096D;
-		return handle.getBytes().read(0) / 32D;
+		return MINOR_VERSION >= 14
+				? handle.getShorts().read(0) / 4096D
+				: MINOR_VERSION >= 9 ? handle.getIntegers().read(1) / 4096D : handle.getBytes().read(0) / 32D;
 	}
 
 	/**
@@ -97,7 +100,8 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	protected void setDx(double value) {
-		if (MINOR_VERSION > 8) handle.getIntegers().write(1, (int) (value * 4096));
+		if (MINOR_VERSION >= 14) handle.getShorts().write(0, (short) (value * 4096));
+		if (MINOR_VERSION >= 9) handle.getIntegers().write(1, (int) (value * 4096));
 		else handle.getBytes().write(0, (byte) (value * 32));
 	}
 
@@ -107,8 +111,9 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @return The current DY
 	 */
 	protected double getDy() {
-		if (MINOR_VERSION > 8) return handle.getIntegers().read(2) / 4096D;
-		return handle.getBytes().read(1) / 32D;
+		return MINOR_VERSION >= 14
+				? handle.getShorts().read(1) / 4096D
+				: MINOR_VERSION >= 9 ? handle.getIntegers().read(2) / 4096D : handle.getBytes().read(1) / 32D;
 	}
 
 	/**
@@ -117,7 +122,8 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	protected void setDy(double value) {
-		if (MINOR_VERSION > 8) handle.getIntegers().write(2, (int) (value * 4096));
+		if (MINOR_VERSION >= 14) handle.getShorts().write(1, (short) (value * 4096));
+		if (MINOR_VERSION >= 9) handle.getIntegers().write(2, (int) (value * 4096));
 		else handle.getBytes().write(1, (byte) (value * 32));
 	}
 
@@ -127,8 +133,9 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @return The current DZ
 	 */
 	protected double getDz() {
-		if (MINOR_VERSION > 8) return handle.getIntegers().read(3) / 4096D;
-		return handle.getBytes().read(2) / 32D;
+		return MINOR_VERSION >= 14
+				? handle.getShorts().read(2) / 4096D
+				: MINOR_VERSION >= 9 ? handle.getIntegers().read(3) / 4096D : handle.getBytes().read(2) / 32D;
 	}
 
 	/**
@@ -137,7 +144,8 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	protected void setDz(double value) {
-		if (MINOR_VERSION > 8) handle.getIntegers().write(3, (int) (value * 4096));
+		if (MINOR_VERSION >= 14) handle.getShorts().write(2, (short) (value * 4096));
+		if (MINOR_VERSION >= 9) handle.getIntegers().write(3, (int) (value * 4096));
 		else handle.getBytes().write(2, (byte) (value * 32));
 	}
 
@@ -147,7 +155,7 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @return The current Yaw
 	 */
 	protected float getYaw() {
-		return (handle.getBytes().read(MINOR_VERSION > 8 ? 0 : 3) * 360.F) / 256.0F;
+		return (handle.getBytes().read(MINOR_VERSION >= 9 ? 0 : 3) * 360.F) / 256.0F;
 	}
 
 	/**
@@ -156,7 +164,7 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @param value - new yaw.
 	 */
 	protected void setYaw(float value) {
-		handle.getBytes().write(MINOR_VERSION > 8 ? 0 : 3, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(MINOR_VERSION >= 9 ? 0 : 3, (byte) (value * 256.0F / 360.0F));
 	}
 
 	/**
@@ -165,7 +173,7 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @return The current pitch
 	 */
 	protected float getPitch() {
-		return (handle.getBytes().read(MINOR_VERSION > 8 ? 1 : 4) * 360.F) / 256.0F;
+		return (handle.getBytes().read(MINOR_VERSION >= 9 ? 1 : 4) * 360.F) / 256.0F;
 	}
 
 	/**
@@ -174,7 +182,7 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	 * @param value - new pitch.
 	 */
 	protected void setPitch(float value) {
-		handle.getBytes().write(MINOR_VERSION > 8 ? 1 : 4, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(MINOR_VERSION >= 9 ? 1 : 4, (byte) (value * 256.0F / 360.0F));
 	}
 
 	/**
@@ -194,4 +202,6 @@ public class WrapperPlayServerEntity extends AbstractPacket {
 	protected void setOnGround(boolean value) {
 		handle.getBooleans().write(0, value);
 	}
+
+	// TODO discover the purpose of the second boolean in layout
 }
