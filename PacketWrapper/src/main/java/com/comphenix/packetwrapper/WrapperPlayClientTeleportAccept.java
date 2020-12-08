@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible(sinceMinor = 9)
 public class WrapperPlayClientTeleportAccept extends AbstractPacket {
 
 	public static final PacketType TYPE = PacketType.Play.Client.TELEPORT_ACCEPT;
