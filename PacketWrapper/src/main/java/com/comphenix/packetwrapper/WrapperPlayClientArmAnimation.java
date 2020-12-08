@@ -38,37 +38,45 @@ public class WrapperPlayClientArmAnimation extends AbstractPacket {
 
 	/**
 	 * Retrieve Hand.
+	 *
 	 * @return The current Hand
 	 */
 	@BackwardsCompatible(sinceMinor = 9)
 	public Hand getHand() {
-		return handle.getHands().read(0);
+		if (MINOR_VERSION >= 9) return handle.getHands().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
 	 * Set Hand.
+	 *
 	 * @param value - new value.
 	 */
 	@BackwardsCompatible(sinceMinor = 9)
 	public void setHand(Hand value) {
-		handle.getHands().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getHands().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
 	}
 
 	/**
 	 * Retrieve timestamp.
+	 *
 	 * @return The current timestamp
 	 */
-	@BackwardsCompatible(sinceMinor = 8, untilMinor = 8)
+	@BackwardsCompatible(untilMinor = 8)
 	public long getTimestamp() {
-		return handle.getLongs().read(0);
+		if (MINOR_VERSION <= 8) return handle.getLongs().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions higher than 1.8");
 	}
 
 	/**
 	 * Set timestamp.
+	 *
 	 * @param value - new value.
 	 */
-	@BackwardsCompatible(sinceMinor = 8, untilMinor = 8)
+	@BackwardsCompatible(untilMinor = 8)
 	public void setTimestamp(long value) {
-		handle.getLongs().write(0, value);
+		if (MINOR_VERSION <= 8) handle.getLongs().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions higher than 1.8");
 	}
 }
