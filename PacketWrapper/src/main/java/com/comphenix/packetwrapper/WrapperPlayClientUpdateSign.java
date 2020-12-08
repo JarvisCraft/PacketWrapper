@@ -18,10 +18,13 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
+@BackwardsCompatible
 public class WrapperPlayClientUpdateSign extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.UPDATE_SIGN;
 
@@ -60,7 +63,36 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 	 * @return The current lines
 	 */
 	public String[] getLines() {
-		return handle.getStringArrays().read(0);
+		if (MINOR_VERSION >= 9) return handle.getStringArrays().read(0);
+
+		final WrappedChatComponent[] chatComponents = handle.getChatComponentArrays().read(0);
+		assert chatComponents.length == 4: "expected to have exactly 4 lines";
+
+		return new String[]{
+				chatComponents[0].getJson(),
+				chatComponents[1].getJson(),
+				chatComponents[2].getJson(),
+				chatComponents[3].getJson()
+		};
+	}
+
+	/**
+	 * Retrieve this sign's lines of text.
+	 *
+	 * @return The current lines
+	 */
+	public WrappedChatComponent[] getLinesChatComponents() {
+		if (MINOR_VERSION <= 8) return handle.getChatComponentArrays().read(0);
+
+		final String[] lines = handle.getStringArrays().read(0);
+		assert lines.length == 4: "expected to have exactly 4 lines";
+
+		return new WrappedChatComponent[]{
+				WrappedChatComponent.fromText(lines[0]),
+				WrappedChatComponent.fromText(lines[1]),
+				WrappedChatComponent.fromText(lines[2]),
+				WrappedChatComponent.fromText(lines[3])
+		};
 	}
 
 	/**
@@ -69,11 +101,33 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 	 * @param value - Lines, must be 4 elements long
 	 */
 	public void setLines(String[] value) {
-		if (value == null)
-			throw new IllegalArgumentException("value cannot be null!");
-		if (value.length != 4)
-			throw new IllegalArgumentException("value must have 4 elements!");
+		if (value == null) throw new IllegalArgumentException("value cannot be null!");
+		if (value.length != 4) throw new IllegalArgumentException("value must have  4 elements!");
 
-		handle.getStringArrays().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getStringArrays().write(0, value);
+		else handle.getChatComponentArrays().write(0, new WrappedChatComponent[]{
+				WrappedChatComponent.fromText(value[0]),
+				WrappedChatComponent.fromText(value[1]),
+				WrappedChatComponent.fromText(value[2]),
+				WrappedChatComponent.fromText(value[3])
+		});
+	}
+
+	/**
+	 * Set this sign's lines of text.
+	 *
+	 * @param value - Lines, must be 4 elements long
+	 */
+	public void setLinesChatComponents(WrappedChatComponent[] value) {
+		if (value == null) throw new IllegalArgumentException("value cannot be null!");
+		if (value.length != 4) throw new IllegalArgumentException("value must have  4 elements!");
+
+		if (MINOR_VERSION <= 8) handle.getChatComponentArrays().write(0, value);
+		else handle.getStringArrays().write(0, new String[]{
+				value[0].getJson(),
+				value[1].getJson(),
+				value[2].getJson(),
+				value[3].getJson()
+		});
 	}
 }
