@@ -18,10 +18,10 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
-import com.mojang.brigadier.suggestion.Suggestions;
 
 public class WrapperPlayClientTabComplete extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.TAB_COMPLETE;
@@ -35,14 +35,6 @@ public class WrapperPlayClientTabComplete extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
-	public int getTransactionId() {
-		return handle.getIntegers().read(0);
-	}
-
-	public void setTransactionId(int value) {
-		handle.getIntegers().write(0, value);
-	}
-
 	public String getInput() {
 		return handle.getStrings().read(0);
 	}
@@ -50,4 +42,53 @@ public class WrapperPlayClientTabComplete extends AbstractPacket {
 	public void setInput(String value) {
 		handle.getStrings().write(0, value);
 	}
+
+	@BackwardsCompatible(sinceMinor = 13)
+	public int getTransactionId() {
+		if (MINOR_VERSION >= 13) return handle.getIntegers().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.13");
+	}
+
+	@BackwardsCompatible(sinceMinor = 13)
+	public void setTransactionId(int value) {
+		if (MINOR_VERSION >= 13) handle.getIntegers().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.13");
+	}
+
+	@BackwardsCompatible(sinceMinor = 9, untilMinor = 12)
+	public boolean getAssumeCommand() {
+		if (MINOR_VERSION >= 9 && MINOR_VERSION <= 12) return handle.getBooleans().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9 or higher than 1.12");
+	}
+
+	@BackwardsCompatible(sinceMinor = 9, untilMinor = 12)
+	public void setAssumeCommand(boolean value) {
+		if (MINOR_VERSION >= 9 && MINOR_VERSION <= 12) handle.getBooleans().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9 or higher than 1.12");
+	}
+
+	/**
+	 * Retrieve Location.
+	 * <p>
+	 * Notes: block entity location
+	 *
+	 * @return The current Location
+	 */
+	@BackwardsCompatible(untilMinor = 12)
+	public BlockPosition getLocation() {
+		if (MINOR_VERSION <= 12) return handle.getBlockPositionModifier().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.12");
+	}
+
+	/**
+	 * Set Location.
+	 *
+	 * @param value - new value.
+	 */
+	@BackwardsCompatible(untilMinor = 12)
+	public void setLocation(BlockPosition value) {
+		if (MINOR_VERSION <= 12) handle.getBlockPositionModifier().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.12");
+	}
+
 }
