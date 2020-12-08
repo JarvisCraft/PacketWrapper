@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientTradeSelect extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.TR_SEL;
 
@@ -36,4 +38,5 @@ public class WrapperPlayClientTradeSelect extends AbstractPacket {
 	public void setSlot(int value) {
 		handle.getIntegers().write(0, value);
 	}
+
 }
