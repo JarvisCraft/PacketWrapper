@@ -18,10 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.ResourcePackStatus;
 
+@BackwardsCompatible
 public class WrapperPlayClientResourcePackStatus extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.RESOURCE_PACK_STATUS;
 
@@ -39,7 +41,7 @@ public class WrapperPlayClientResourcePackStatus extends AbstractPacket {
 	 * <p>
 	 * Notes: successfully loaded: 0, Declined: 1, Failed download: 2, Accepted:
 	 * 3
-	 * 
+	 *
 	 * @return The current Result
 	 */
 	public ResourcePackStatus getResult() {
@@ -48,10 +50,20 @@ public class WrapperPlayClientResourcePackStatus extends AbstractPacket {
 
 	/**
 	 * Set Result.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setResult(ResourcePackStatus value) {
 		handle.getResourcePackStatus().write(0, value);
+	}
+
+	@BackwardsCompatible(untilMinor = 9)
+	public String getHash() {
+		return handle.getStrings().read(0);
+	}
+
+	@BackwardsCompatible(untilMinor = 9)
+	public void setHash(String value) {
+		handle.getStrings().write(0, value);
 	}
 }
