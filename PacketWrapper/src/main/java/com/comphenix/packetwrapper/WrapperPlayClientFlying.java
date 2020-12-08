@@ -39,70 +39,6 @@ public class WrapperPlayClientFlying extends AbstractPacket {
 		this(packet, TYPE);
 	}
 
-	public double getX() {
-		return handle.getDoubles().read(0);
-	}
-
-	public void setX(double value) {
-		handle.getDoubles().write(0, value);
-	}
-
-	public double getY() {
-		return handle.getDoubles().read(1);
-	}
-
-	public void setY(double value) {
-		handle.getDoubles().write(1, value);
-	}
-
-	public double getZ() {
-		return handle.getDoubles().read(2);
-	}
-
-	public void setZ(double value) {
-		handle.getDoubles().write(2, value);
-	}
-
-	/**
-	 * Retrieve Yaw.
-	 * <p>
-	 * Notes: absolute rotation on the X Axis, in degrees
-	 *
-	 * @return The current Yaw
-	 */
-	public float getYaw() {
-		return handle.getFloat().read(0);
-	}
-
-	/**
-	 * Set Yaw.
-	 *
-	 * @param value - new value.
-	 */
-	public void setYaw(float value) {
-		handle.getFloat().write(0, value);
-	}
-
-	/**
-	 * Retrieve Pitch.
-	 * <p>
-	 * Notes: absolute rotation on the Y Axis, in degrees
-	 *
-	 * @return The current Pitch
-	 */
-	public float getPitch() {
-		return handle.getFloat().read(1);
-	}
-
-	/**
-	 * Set Pitch.
-	 *
-	 * @param value - new value.
-	 */
-	public void setPitch(float value) {
-		handle.getFloat().write(1, value);
-	}
-
 	/**
 	 * Retrieve On Ground.
 	 * <p>
@@ -123,19 +59,83 @@ public class WrapperPlayClientFlying extends AbstractPacket {
 		handle.getBooleans().write(0, value);
 	}
 
-	public boolean getHasPos() {
+	protected double getX() {
+		return handle.getDoubles().read(0);
+	}
+
+	protected void setX(double value) {
+		handle.getDoubles().write(0, value);
+	}
+
+	protected double getY() {
+		return handle.getDoubles().read(1);
+	}
+
+	protected void setY(double value) {
+		handle.getDoubles().write(1, value);
+	}
+
+	protected double getZ() {
+		return handle.getDoubles().read(2);
+	}
+
+	protected void setZ(double value) {
+		handle.getDoubles().write(2, value);
+	}
+
+	/**
+	 * Retrieve Yaw.
+	 * <p>
+	 * Notes: absolute rotation on the X Axis, in degrees
+	 *
+	 * @return The current Yaw
+	 */
+	protected float getYaw() {
+		return handle.getFloat().read(0);
+	}
+
+	/**
+	 * Set Yaw.
+	 *
+	 * @param value - new value.
+	 */
+	protected void setYaw(float value) {
+		handle.getFloat().write(0, value);
+	}
+
+	/**
+	 * Retrieve Pitch.
+	 * <p>
+	 * Notes: absolute rotation on the Y Axis, in degrees
+	 *
+	 * @return The current Pitch
+	 */
+	protected float getPitch() {
+		return handle.getFloat().read(1);
+	}
+
+	/**
+	 * Set Pitch.
+	 *
+	 * @param value - new value.
+	 */
+	protected void setPitch(float value) {
+		handle.getFloat().write(1, value);
+	}
+
+	protected boolean getHasPos() {
 		return handle.getBooleans().read(1);
 	}
 
-	public void setHasPos(boolean value) {
+	protected void setHasPos(boolean value) {
 		handle.getBooleans().write(1, value);
 	}
 
-	public boolean getHasLook() {
+	protected boolean getHasLook() {
 		return handle.getBooleans().read(2);
 	}
 
-	public void setHasLook(boolean value) {
+	protected void setHasLook(boolean value) {
 		handle.getBooleans().write(2, value);
 	}
 

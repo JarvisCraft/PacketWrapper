@@ -35,4 +35,34 @@ public class WrapperPlayClientPosition extends WrapperPlayClientFlying {
 		super(packet, TYPE);
 	}
 
+	@Override
+	public double getX() {
+		return super.getX();
+	}
+
+	@Override
+	public void setX(double value) {
+		super.setX(value);
+	}
+
+	@Override
+	public double getY() {
+		return super.getY();
+	}
+
+	@Override
+	public void setY(double value) {
+		super.setY(value);
+	}
+
+	@Override
+	public double getZ() {
+		return super.getZ();
+	}
+
+	@Override
+	public void setZ(double value) {
+		super.setZ(value);
+	}
+
 }

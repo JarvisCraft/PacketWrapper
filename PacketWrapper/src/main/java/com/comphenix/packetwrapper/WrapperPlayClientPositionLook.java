@@ -35,4 +35,54 @@ public class WrapperPlayClientPositionLook extends WrapperPlayClientFlying {
 		super(packet, TYPE);
 	}
 
+	@Override
+	public double getX() {
+		return super.getX();
+	}
+
+	@Override
+	public void setX(double value) {
+		super.setX(value);
+	}
+
+	@Override
+	public double getY() {
+		return super.getY();
+	}
+
+	@Override
+	public void setY(double value) {
+		super.setY(value);
+	}
+
+	@Override
+	public double getZ() {
+		return super.getZ();
+	}
+
+	@Override
+	public void setZ(double value) {
+		super.setZ(value);
+	}
+
+	@Override
+	protected float getYaw() {
+		return super.getYaw();
+	}
+
+	@Override
+	protected void setYaw(float value) {
+		super.setYaw(value);
+	}
+
+	@Override
+	protected float getPitch() {
+		return super.getPitch();
+	}
+
+	@Override
+	protected void setPitch(float value) {
+		super.setPitch(value);
+	}
+
 }
