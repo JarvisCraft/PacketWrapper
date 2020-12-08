@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientSteerVehicle extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.STEER_VEHICLE;
 
@@ -37,7 +39,7 @@ public class WrapperPlayClientSteerVehicle extends AbstractPacket {
 	 * Retrieve Sideways.
 	 * <p>
 	 * Notes: positive to the left of the player
-	 * 
+	 *
 	 * @return The current Sideways
 	 */
 	public float getSideways() {
@@ -46,7 +48,7 @@ public class WrapperPlayClientSteerVehicle extends AbstractPacket {
 
 	/**
 	 * Set Sideways.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setSideways(float value) {
@@ -57,7 +59,7 @@ public class WrapperPlayClientSteerVehicle extends AbstractPacket {
 	 * Retrieve Forward.
 	 * <p>
 	 * Notes: positive forward
-	 * 
+	 *
 	 * @return The current Forward
 	 */
 	public float getForward() {
@@ -66,7 +68,7 @@ public class WrapperPlayClientSteerVehicle extends AbstractPacket {
 
 	/**
 	 * Set Forward.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setForward(float value) {
