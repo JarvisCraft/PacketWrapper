@@ -18,9 +18,13 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible(sinceMinor = 13)
+// TODO: this packet is present on 1.12 but uses IRecipe
+// TODO: layout is too different on different versions
 public class WrapperPlayClientRecipeDisplayed extends AbstractPacket {
     public static final PacketType TYPE = PacketType.Play.Client.RECIPE_DISPLAYED;
     
