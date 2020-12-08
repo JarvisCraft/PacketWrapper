@@ -18,10 +18,13 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.EnumWrappers.ChatVisibility;
 
+@BackwardsCompatible
 public class WrapperPlayClientSettings extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.SETTINGS;
 
@@ -38,7 +41,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 	 * Retrieve Locale.
 	 * <p>
 	 * Notes: en_GB
-	 * 
+	 *
 	 * @return The current Locale
 	 */
 	public String getLocale() {
@@ -47,7 +50,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 
 	/**
 	 * Set Locale.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setLocale(String value) {
@@ -58,7 +61,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 	 * Retrieve View distance.
 	 * <p>
 	 * Notes: client-side render distance(chunks)
-	 * 
+	 *
 	 * @return The current View distance
 	 */
 	public int getViewDistance() {
@@ -67,18 +70,18 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 
 	/**
 	 * Set View distance.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setViewDistance(byte value) {
-		handle.getIntegers().write(0, (int) value);
+	public void setViewDistance(int value) {
+		handle.getIntegers().write(0, value);
 	}
 
 	/**
 	 * Retrieve Chat flags.
 	 * <p>
 	 * Notes: chat settings. See notes below.
-	 * 
+	 *
 	 * @return The current Chat flags
 	 */
 	public ChatVisibility getChatFlags() {
@@ -87,7 +90,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 
 	/**
 	 * Set Chat flags.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setChatFlags(ChatVisibility value) {
@@ -98,7 +101,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 	 * Retrieve Chat colours.
 	 * <p>
 	 * Notes: "Colours" multiplayer setting
-	 * 
+	 *
 	 * @return The current Chat colours
 	 */
 	public boolean getChatColours() {
@@ -107,7 +110,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 
 	/**
 	 * Set Chat colours.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setChatColours(boolean value) {
@@ -118,7 +121,7 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 	 * Retrieve Displayed skin parts.
 	 * <p>
 	 * Notes: skin parts. See note below
-	 * 
+	 *
 	 * @return The current Displayed skin parts
 	 */
 	public int getDisplayedSkinParts() {
@@ -127,11 +130,44 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 
 	/**
 	 * Set Displayed skin parts.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setDisplayedSkinParts(int value) {
 		handle.getIntegers().write(1, value);
+	}
+
+	/**
+	 * Retrieve Displayed skin parts.
+	 * <p>
+	 * Notes: skin parts. See note below
+	 *
+	 * @return The current Displayed skin parts
+	 */
+	@BackwardsCompatible(sinceMinor = 9)
+	public MainHand getMainHand() {
+		if (MINOR_VERSION >= 9) return handle
+				.getEnumModifier(MainHand.class, MinecraftReflection.getMinecraftClass("EnumMainHand"))
+				.readSafely(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
+	}
+
+	/**
+	 * Set Displayed skin parts.
+	 *
+	 * @param value - new value.
+	 */
+	@BackwardsCompatible(sinceMinor = 9)
+	public void setMainHand(MainHand value) {
+		if (MINOR_VERSION >= 9) handle
+				.getEnumModifier(MainHand.class, MinecraftReflection.getMinecraftClass("EnumMainHand"))
+				.writeSafely(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
+	}
+
+	public enum MainHand {
+		LEFT,
+		RIGHT;
 	}
 
 }
