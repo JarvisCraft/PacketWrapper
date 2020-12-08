@@ -18,15 +18,17 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
-
+@BackwardsCompatible
 public class WrapperPlayClientUseEntity extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.USE_ENTITY;
 
@@ -114,4 +116,37 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 	public void setTargetVector(Vector value) {
 		handle.getVectors().write(0, value);
 	}
+
+	/**
+	 * Retrieve Hand.
+	 * @return The current Hand
+	 */
+	@BackwardsCompatible(sinceMinor = 9)
+	public EnumWrappers.Hand getHand() {
+		if (MINOR_VERSION >= 9) return handle.getHands().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
+	}
+
+	/**
+	 * Set Hand.
+	 * @param value - new value.
+	 */
+	@BackwardsCompatible(sinceMinor = 9)
+	public void setHand(EnumWrappers.Hand value) {
+		if (MINOR_VERSION >= 9) handle.getHands().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.9");
+	}
+
+	@BackwardsCompatible(sinceMinor = 16)
+	public boolean getSneaking() {
+		if (MINOR_VERSION >= 16) return handle.getBooleans().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.16");
+	}
+
+	@BackwardsCompatible(sinceMinor = 16)
+	public void setSneaking(boolean value) {
+		if (MINOR_VERSION >= 16) handle.getBooleans().write(0, value);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.16");
+	}
+
 }
