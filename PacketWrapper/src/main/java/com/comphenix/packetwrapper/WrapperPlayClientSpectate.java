@@ -18,11 +18,13 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.util.UUID;
-
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+import java.util.UUID;
+
+@BackwardsCompatible
 public class WrapperPlayClientSpectate extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.SPECTATE;
 
@@ -37,7 +39,7 @@ public class WrapperPlayClientSpectate extends AbstractPacket {
 
 	/**
 	 * Retrieve Target Player.
-	 * 
+	 *
 	 * @return The current Target Player
 	 */
 	public UUID getTargetPlayer() {
@@ -46,7 +48,7 @@ public class WrapperPlayClientSpectate extends AbstractPacket {
 
 	/**
 	 * Set Target Player.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setTargetPlayer(UUID value) {
