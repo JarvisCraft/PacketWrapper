@@ -18,6 +18,7 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -25,6 +26,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
+@BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientSetCommandMinecart extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.SET_COMMAND_MINECART;
