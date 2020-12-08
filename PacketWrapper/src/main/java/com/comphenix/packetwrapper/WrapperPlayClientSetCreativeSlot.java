@@ -18,11 +18,12 @@
  */
 package com.comphenix.packetwrapper;
 
-import org.bukkit.inventory.ItemStack;
-
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import org.bukkit.inventory.ItemStack;
 
+@BackwardsCompatible
 public class WrapperPlayClientSetCreativeSlot extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.SET_CREATIVE_SLOT;
 
@@ -39,7 +40,7 @@ public class WrapperPlayClientSetCreativeSlot extends AbstractPacket {
 	 * Retrieve Slot.
 	 * <p>
 	 * Notes: inventory slot
-	 * 
+	 *
 	 * @return The current Slot
 	 */
 	public int getSlot() {
@@ -48,7 +49,7 @@ public class WrapperPlayClientSetCreativeSlot extends AbstractPacket {
 
 	/**
 	 * Set Slot.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setSlot(int value) {
@@ -57,7 +58,7 @@ public class WrapperPlayClientSetCreativeSlot extends AbstractPacket {
 
 	/**
 	 * Retrieve Clicked item.
-	 * 
+	 *
 	 * @return The current Clicked item
 	 */
 	public ItemStack getClickedItem() {
@@ -66,11 +67,12 @@ public class WrapperPlayClientSetCreativeSlot extends AbstractPacket {
 
 	/**
 	 * Set Clicked item.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setClickedItem(ItemStack value) {
 		handle.getItemModifier().write(0, value);
 	}
+
 
 }
