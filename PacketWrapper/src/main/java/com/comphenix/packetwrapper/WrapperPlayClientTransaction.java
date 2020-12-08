@@ -37,7 +37,7 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 	 * Retrieve Window ID.
 	 * <p>
 	 * Notes: the id of the window that the action occurred in.
-	 * 
+	 *
 	 * @return The current Window ID
 	 */
 	public int getWindowId() {
@@ -46,11 +46,11 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 
 	/**
 	 * Set Window ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	public void setWindowId(byte value) {
-		handle.getIntegers().write(0, (int) value);
+	public void setWindowId(int value) {
+		handle.getIntegers().write(0, value);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 	 * <p>
 	 * Notes: every action that is to be accepted has a unique number. This
 	 * field corresponds to that number.
-	 * 
+	 *
 	 * @return The current Action number
 	 */
 	public short getActionNumber() {
@@ -67,7 +67,7 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 
 	/**
 	 * Set Action number.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setActionNumber(short value) {
@@ -78,7 +78,7 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 	 * Retrieve Accepted.
 	 * <p>
 	 * Notes: whether the action was accepted.
-	 * 
+	 *
 	 * @return The current Accepted
 	 */
 	public boolean getAccepted() {
@@ -87,7 +87,7 @@ public class WrapperPlayClientTransaction extends AbstractPacket {
 
 	/**
 	 * Set Accepted.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setAccepted(boolean value) {
