@@ -18,11 +18,13 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import org.bukkit.inventory.ItemStack;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayClientWindowClick extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.WINDOW_CLICK;
 
@@ -135,14 +137,23 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 	}
 
 	public InventoryClickType getShift() {
-		return handle.getEnumModifier(InventoryClickType.class, 5).read(0);
+		return MINOR_VERSION >= 9
+				? handle.getEnumModifier(InventoryClickType.class, 5).read(0)
+				: InventoryClickType.fromId(handle.getIntegers().read(3));
 	}
 
 	public void setShift(InventoryClickType value) {
-		handle.getEnumModifier(InventoryClickType.class, 5).write(0, value);
+		if (MINOR_VERSION >= 9) handle.getEnumModifier(InventoryClickType.class, 5).write(0, value);
+		else handle.getIntegers().write(3, value.ordinal());
 	}
 
 	public enum InventoryClickType {
 		PICKUP, QUICK_MOVE, SWAP, CLONE, THROW, QUICK_CRAFT, PICKUP_ALL;
+
+		private static final InventoryClickType[] VALUES = values();
+
+		public static InventoryClickType fromId(final int id) {
+			return VALUES[id];
+		}
 	}
 }
