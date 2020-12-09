@@ -18,9 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+@BackwardsCompatible
 public class WrapperPlayServerAbilities extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.ABILITIES;
 
@@ -41,16 +43,16 @@ public class WrapperPlayServerAbilities extends AbstractPacket {
 		handle.getBooleans().write(0, value);
 	}
 
-	/**Misspelled.
-	 * @see #isInvulnerable()
+	/**
+	 * @deprecated use {@link #isInvulnerable()} instead
 	 */
 	@Deprecated
 	public boolean isInvulnurable() {
 		return isInvulnerable();
 	}
 
-	/**Misspelled.
-	 * @see #setInvulnerable(boolean)
+	/**
+	 * @deprecated use {@link #setInvulnerable(boolean)} instead
 	 */
 	@Deprecated
 	public void setInvulnurable(boolean value) {
