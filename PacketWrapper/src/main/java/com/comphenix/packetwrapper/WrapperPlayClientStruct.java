@@ -57,13 +57,6 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 		handle.getBlockPositionModifier().write(0, value);
 	}
 
-	public enum UpdateType {
-		UPDATE_DATA,
-		SAVE_AREA,
-		LOAD_AREA,
-		SCAN_AREA;
-	}
-
 	/**
 	 * Retrieve Action.
 	 * <p>
@@ -82,13 +75,6 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 	 */
 	public void setAction(UpdateType value) {
 		handle.getEnumModifier(UpdateType.class, 1).write(0, value);
-	}
-
-	public enum BlockPropertyStructureMode {
-		SAVE,
-		LOAD,
-		CORNER,
-		DATA;
 	}
 
 	/**
@@ -169,12 +155,6 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 		handle.getBlockPositionModifier().write(2, value);
 	}
 
-	public enum BlockMirror {
-		NONE,
-		LEFT_RIGHT,
-		FRONT_BACK;
-	}
-
 	/**
 	 * Retrieve Mirror.
 	 * <p>
@@ -193,13 +173,6 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 	 */
 	public void setMirror(BlockMirror value) {
 		handle.getEnumModifier(BlockMirror.class, 6).write(0, value);
-	}
-
-	public enum BlockRotation {
-		NONE,
-		CLOCKWISE_90,
-		CLOCKWISE_180,
-		COUNTERCLOCKWISE_90
 	}
 
 	/**
@@ -300,5 +273,32 @@ public class WrapperPlayClientStruct extends AbstractPacket {
 
 	public void setShowBoundingBox(boolean value) {
 		handle.getBooleans().write(2, value);
+	}
+
+	public enum UpdateType {
+		UPDATE_DATA,
+		SAVE_AREA,
+		LOAD_AREA,
+		SCAN_AREA;
+	}
+
+	public enum BlockPropertyStructureMode {
+		SAVE,
+		LOAD,
+		CORNER,
+		DATA;
+	}
+
+	public enum BlockMirror {
+		NONE,
+		LEFT_RIGHT,
+		FRONT_BACK;
+	}
+
+	public enum BlockRotation {
+		NONE,
+		CLOCKWISE_90,
+		CLOCKWISE_180,
+		COUNTERCLOCKWISE_90
 	}
 }

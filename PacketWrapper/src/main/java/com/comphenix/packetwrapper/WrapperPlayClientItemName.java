@@ -25,33 +25,35 @@ import com.comphenix.protocol.events.PacketContainer;
 @BackwardsCompatible(sinceMinor = 13)
 public class WrapperPlayClientItemName extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Client.ITEM_NAME;
-    
-    public WrapperPlayClientItemName() {
-        super(new PacketContainer(TYPE), TYPE);
-        handle.getModifier().writeDefaults();
-    }
-    
-    public WrapperPlayClientItemName(PacketContainer packet) {
-        super(packet, TYPE);
-    }
-    
-    /**
-     * Retrieve Item name.
-     * <p>
-     * Notes: the new name of the item
-     * @return The current Item name
-     */
-    public String getItemName() {
-        return handle.getStrings().read(0);
-    }
-    
-    /**
-     * Set Item name.
-     * @param value - new value.
-     */
-    public void setItemName(String value) {
-        handle.getStrings().write(0, value);
-    }
-    
+	public static final PacketType TYPE = PacketType.Play.Client.ITEM_NAME;
+
+	public WrapperPlayClientItemName() {
+		super(new PacketContainer(TYPE), TYPE);
+		handle.getModifier().writeDefaults();
+	}
+
+	public WrapperPlayClientItemName(PacketContainer packet) {
+		super(packet, TYPE);
+	}
+
+	/**
+	 * Retrieve Item name.
+	 * <p>
+	 * Notes: the new name of the item
+	 *
+	 * @return The current Item name
+	 */
+	public String getItemName() {
+		return handle.getStrings().read(0);
+	}
+
+	/**
+	 * Set Item name.
+	 *
+	 * @param value - new value.
+	 */
+	public void setItemName(String value) {
+		handle.getStrings().write(0, value);
+	}
+
 }

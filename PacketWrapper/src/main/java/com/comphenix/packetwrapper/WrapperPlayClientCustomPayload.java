@@ -44,14 +44,14 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 		return handle.getStrings().read(0);
 	}
 
-	@BackwardsCompatible(sinceMinor = 13)
-	public MinecraftKey getChannel() {
-		return handle.getMinecraftKeys().readSafely(0);
-	}
-
 	@BackwardsCompatible(untilMinor = 12)
 	public void setChannelName(String value) {
 		handle.getStrings().write(0, value);
+	}
+
+	@BackwardsCompatible(sinceMinor = 13)
+	public MinecraftKey getChannel() {
+		return handle.getMinecraftKeys().readSafely(0);
 	}
 
 	@BackwardsCompatible(sinceMinor = 13)
@@ -69,18 +69,6 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 	}
 
 	/**
-	 * Retrieve payload contents
-	 *
-	 * @return Payload contents as a byte array
-	 */
-	public byte[] getContents() {
-		ByteBuf buffer = getContentsBuffer().copy();
-		byte[] array = new byte[buffer.readableBytes()];
-		buffer.readBytes(array);
-		return array;
-	}
-
-	/**
 	 * Update payload contents with a Netty buffer
 	 *
 	 * @param contents - new payload contents
@@ -92,6 +80,18 @@ public class WrapperPlayClientCustomPayload extends AbstractPacket {
 			Object serializer = MinecraftReflection.getPacketDataSerializer(contents);
 			handle.getModifier().withType(ByteBuf.class).write(0, serializer);
 		}
+	}
+
+	/**
+	 * Retrieve payload contents
+	 *
+	 * @return Payload contents as a byte array
+	 */
+	public byte[] getContents() {
+		ByteBuf buffer = getContentsBuffer().copy();
+		byte[] array = new byte[buffer.readableBytes()];
+		buffer.readBytes(array);
+		return array;
 	}
 
 	/**

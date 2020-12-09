@@ -43,7 +43,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Retrieve entity ID of the target.
-	 * 
+	 *
 	 * @return The current entity ID
 	 */
 	public int getTargetID() {
@@ -51,8 +51,17 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 	}
 
 	/**
+	 * Set entity ID of the target.
+	 *
+	 * @param value - new value.
+	 */
+	public void setTargetID(int value) {
+		handle.getIntegers().write(0, value);
+	}
+
+	/**
 	 * Retrieve the entity that was targeted.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The targeted entity.
 	 */
@@ -62,7 +71,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity that was targeted.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The targeted entity.
 	 */
@@ -71,17 +80,8 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 	}
 
 	/**
-	 * Set entity ID of the target.
-	 * 
-	 * @param value - new value.
-	 */
-	public void setTargetID(int value) {
-		handle.getIntegers().write(0, value);
-	}
-
-	/**
 	 * Retrieve Type.
-	 * 
+	 *
 	 * @return The current Type
 	 */
 	public EntityUseAction getType() {
@@ -90,7 +90,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Set Type.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setType(EntityUseAction value) {
@@ -101,7 +101,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 	 * Retrieve the target vector.
 	 * <p>
 	 * Notes: Only if {@link #getType()} is {@link EntityUseAction#INTERACT_AT}.
-	 * 
+	 *
 	 * @return The target vector or null
 	 */
 	public Vector getTargetVector() {
@@ -110,7 +110,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Set the target vector.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setTargetVector(Vector value) {
@@ -119,6 +119,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Retrieve Hand.
+	 *
 	 * @return The current Hand
 	 */
 	@BackwardsCompatible(sinceMinor = 9)
@@ -129,6 +130,7 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 
 	/**
 	 * Set Hand.
+	 *
 	 * @param value - new value.
 	 */
 	@BackwardsCompatible(sinceMinor = 9)

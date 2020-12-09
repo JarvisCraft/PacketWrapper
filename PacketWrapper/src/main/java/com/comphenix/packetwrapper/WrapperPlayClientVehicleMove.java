@@ -40,7 +40,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 	 * Retrieve X.
 	 * <p>
 	 * Notes: absolute position (X coordinate)
-	 * 
+	 *
 	 * @return The current X
 	 */
 	public double getX() {
@@ -49,7 +49,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 
 	/**
 	 * Set X.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
@@ -60,7 +60,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 	 * Retrieve Y.
 	 * <p>
 	 * Notes: absolute position (Y coordinate)
-	 * 
+	 *
 	 * @return The current Y
 	 */
 	public double getY() {
@@ -69,7 +69,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 
 	/**
 	 * Set Y.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
@@ -80,7 +80,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 	 * Retrieve Z.
 	 * <p>
 	 * Notes: absolute position (Z coordinate)
-	 * 
+	 *
 	 * @return The current Z
 	 */
 	public double getZ() {
@@ -89,7 +89,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 
 	/**
 	 * Set Z.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
@@ -100,7 +100,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 	 * Retrieve Yaw.
 	 * <p>
 	 * Notes: absolute rotation on the vertical axis, in degrees
-	 * 
+	 *
 	 * @return The current Yaw
 	 */
 	public float getYaw() {
@@ -109,7 +109,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 
 	/**
 	 * Set Yaw.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setYaw(float value) {
@@ -120,7 +120,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 	 * Retrieve Pitch.
 	 * <p>
 	 * Notes: absolute rotation on the horizontal axis, in degrees
-	 * 
+	 *
 	 * @return The current Pitch
 	 */
 	public float getPitch() {
@@ -129,7 +129,7 @@ public class WrapperPlayClientVehicleMove extends AbstractPacket {
 
 	/**
 	 * Set Pitch.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setPitch(float value) {

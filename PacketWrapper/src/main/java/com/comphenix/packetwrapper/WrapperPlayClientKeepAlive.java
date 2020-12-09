@@ -37,7 +37,7 @@ public class WrapperPlayClientKeepAlive extends AbstractPacket {
 
 	/**
 	 * Retrieve Keep Alive ID.
-	 * 
+	 *
 	 * @return The current Keep Alive ID
 	 */
 	public long getKeepAliveId() {
@@ -46,7 +46,7 @@ public class WrapperPlayClientKeepAlive extends AbstractPacket {
 
 	/**
 	 * Set Keep Alive ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setKeepAliveId(long value) {

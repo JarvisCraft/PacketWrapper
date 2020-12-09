@@ -239,6 +239,7 @@ public class WrapperPlayClientUseItem extends AbstractPacket {
 
 	/**
 	 * Gets a {@link MovingObjectPosition} modifier for {@link #handle}
+	 *
 	 * @return {@link MovingObjectPosition} modifier for {@link #handle}
 	 */
 	protected StructureModifier<MovingObjectPosition> movingObjectPositionModifier() {
@@ -341,7 +342,7 @@ public class WrapperPlayClientUseItem extends AbstractPacket {
 					= MinecraftReflection.getMinecraftClass("MovingObjectPositionBlock");
 
 			private static final AutoWrapper<MovingObjectPosition> AUTO_WRAPPER = AutoWrapper
-					.wrap(MovingObjectPosition.class, POSITION_CLASS /* null on versions before 1.14 */ )
+					.wrap(MovingObjectPosition.class, POSITION_CLASS /* null on versions before 1.14 */)
 					.field(0, BukkitConverters.getVectorConverter())
 					.field(1, EnumWrappers.getDirectionConverter())
 					.field(2, BlockPosition.getConverter());

@@ -19,13 +19,12 @@
 package com.comphenix.packetwrapper;
 
 import com.comphenix.packetwrapper.util.BackwardsCompatible;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerAction;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 
 @BackwardsCompatible
 public class WrapperPlayClientEntityAction extends AbstractPacket {
@@ -44,7 +43,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 	 * Retrieve Entity ID.
 	 * <p>
 	 * Notes: entity's ID
-	 * 
+	 *
 	 * @return The current Entity ID
 	 */
 	public int getEntityID() {
@@ -53,7 +52,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 
 	/**
 	 * Set Entity ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
@@ -62,7 +61,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity of the painting that will be spawned.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The spawned entity.
 	 */
@@ -72,7 +71,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity of the painting that will be spawned.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The spawned entity.
 	 */
@@ -84,7 +83,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 	 * Retrieve Action ID.
 	 * <p>
 	 * Notes: the ID of the action, see below.
-	 * 
+	 *
 	 * @return The current Action ID
 	 */
 	public PlayerAction getAction() {
@@ -93,7 +92,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 
 	/**
 	 * Set Action ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setAction(PlayerAction value) {
@@ -104,7 +103,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 	 * Retrieve Jump Boost.
 	 * <p>
 	 * Notes: horse jump boost. Ranged from 0 -> 100.
-	 * 
+	 *
 	 * @return The current Jump Boost
 	 */
 	public int getJumpBoost() {
@@ -113,7 +112,7 @@ public class WrapperPlayClientEntityAction extends AbstractPacket {
 
 	/**
 	 * Set Jump Boost.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setJumpBoost(int value) {

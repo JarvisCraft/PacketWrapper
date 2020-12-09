@@ -19,10 +19,9 @@
 package com.comphenix.packetwrapper;
 
 import com.comphenix.packetwrapper.util.BackwardsCompatible;
-import org.bukkit.inventory.ItemStack;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import org.bukkit.inventory.ItemStack;
 
 @BackwardsCompatible
 public class WrapperPlayClientWindowClick extends AbstractPacket {
@@ -41,7 +40,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 	 * Retrieve Window ID.
 	 * <p>
 	 * Notes: the id of the window which was clicked. 0 for player inventory.
-	 * 
+	 *
 	 * @return The current Window ID
 	 */
 	public int getWindowId() {
@@ -50,7 +49,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Set Window ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setWindowId(int value) {
@@ -61,7 +60,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 	 * Retrieve Slot.
 	 * <p>
 	 * Notes: the clicked slot. See below.
-	 * 
+	 *
 	 * @return The current Slot
 	 */
 	public int getSlot() {
@@ -70,7 +69,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Set Slot.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setSlot(int value) {
@@ -81,7 +80,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 	 * Retrieve Button.
 	 * <p>
 	 * Notes: the button used in the click. See below.
-	 * 
+	 *
 	 * @return The current Button
 	 */
 	public int getButton() {
@@ -90,7 +89,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Set Button.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setButton(int value) {
@@ -102,7 +101,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 	 * <p>
 	 * Notes: a unique number for the action, used for transaction handling (See
 	 * the Transaction packet).
-	 * 
+	 *
 	 * @return The current Action number
 	 */
 	public short getActionNumber() {
@@ -111,7 +110,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Set Action number.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setActionNumber(short value) {
@@ -120,7 +119,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Retrieve Clicked item.
-	 * 
+	 *
 	 * @return The current Clicked item
 	 */
 	public ItemStack getClickedItem() {
@@ -129,7 +128,7 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
 
 	/**
 	 * Set Clicked item.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setClickedItem(ItemStack value) {

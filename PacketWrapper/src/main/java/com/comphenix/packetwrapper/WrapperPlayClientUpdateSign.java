@@ -41,7 +41,7 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 	 * Retrieve Location.
 	 * <p>
 	 * Notes: block Coordinates
-	 * 
+	 *
 	 * @return The current Location
 	 */
 	public BlockPosition getLocation() {
@@ -50,7 +50,7 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 
 	/**
 	 * Set Location.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setLocation(BlockPosition value) {
@@ -59,14 +59,14 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 
 	/**
 	 * Retrieve this sign's lines of text.
-	 * 
+	 *
 	 * @return The current lines
 	 */
 	public String[] getLines() {
 		if (MINOR_VERSION >= 9) return handle.getStringArrays().read(0);
 
 		final WrappedChatComponent[] chatComponents = handle.getChatComponentArrays().read(0);
-		assert chatComponents.length == 4: "expected to have exactly 4 lines";
+		assert chatComponents.length == 4 : "expected to have exactly 4 lines";
 
 		return new String[]{
 				chatComponents[0].getJson(),
@@ -77,27 +77,8 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 	}
 
 	/**
-	 * Retrieve this sign's lines of text.
-	 *
-	 * @return The current lines
-	 */
-	public WrappedChatComponent[] getLinesChatComponents() {
-		if (MINOR_VERSION <= 8) return handle.getChatComponentArrays().read(0);
-
-		final String[] lines = handle.getStringArrays().read(0);
-		assert lines.length == 4: "expected to have exactly 4 lines";
-
-		return new WrappedChatComponent[]{
-				WrappedChatComponent.fromText(lines[0]),
-				WrappedChatComponent.fromText(lines[1]),
-				WrappedChatComponent.fromText(lines[2]),
-				WrappedChatComponent.fromText(lines[3])
-		};
-	}
-
-	/**
 	 * Set this sign's lines of text.
-	 * 
+	 *
 	 * @param value - Lines, must be 4 elements long
 	 */
 	public void setLines(String[] value) {
@@ -111,6 +92,25 @@ public class WrapperPlayClientUpdateSign extends AbstractPacket {
 				WrappedChatComponent.fromText(value[2]),
 				WrappedChatComponent.fromText(value[3])
 		});
+	}
+
+	/**
+	 * Retrieve this sign's lines of text.
+	 *
+	 * @return The current lines
+	 */
+	public WrappedChatComponent[] getLinesChatComponents() {
+		if (MINOR_VERSION <= 8) return handle.getChatComponentArrays().read(0);
+
+		final String[] lines = handle.getStringArrays().read(0);
+		assert lines.length == 4 : "expected to have exactly 4 lines";
+
+		return new WrappedChatComponent[]{
+				WrappedChatComponent.fromText(lines[0]),
+				WrappedChatComponent.fromText(lines[1]),
+				WrappedChatComponent.fromText(lines[2]),
+				WrappedChatComponent.fromText(lines[3])
+		};
 	}
 
 	/**

@@ -40,7 +40,7 @@ public class WrapperPlayClientTeleportAccept extends AbstractPacket {
 	 * Retrieve Teleport ID.
 	 * <p>
 	 * Notes: the ID given by the Player Position And Look packet
-	 * 
+	 *
 	 * @return The current Teleport ID
 	 */
 	public int getTeleportId() {
@@ -49,7 +49,7 @@ public class WrapperPlayClientTeleportAccept extends AbstractPacket {
 
 	/**
 	 * Set Teleport ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setTeleportId(int value) {

@@ -41,6 +41,7 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 	 * Retrieve Primary Effect.
 	 * <p>
 	 * Notes: a Potion ID. (Was a full Integer for the plugin message)
+	 *
 	 * @return The current Primary Effect
 	 */
 	public int getPrimaryEffectId() {
@@ -48,7 +49,17 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 	}
 
 	/**
+	 * Set Primary Effect.
+	 *
+	 * @param value - new value.
+	 */
+	public void setPrimaryEffectId(int value) {
+		handle.getIntegers().write(0, value);
+	}
+
+	/**
 	 * Retrieve Primary Effect.
+	 *
 	 * @return The current Primary Effect
 	 */
 	@SuppressWarnings("deprecation")
@@ -58,14 +69,7 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 
 	/**
 	 * Set Primary Effect.
-	 * @param value - new value.
-	 */
-	public void setPrimaryEffectId(int value) {
-		handle.getIntegers().write(0, value);
-	}
-
-	/**
-	 * Set Primary Effect.
+	 *
 	 * @param value - new value.
 	 */
 	public void setPrimaryEffect(PotionEffectType value) {
@@ -76,6 +80,7 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 	 * Retrieve Secondary Effect.
 	 * <p>
 	 * Notes: a Potion ID. (Was a full Integer for the plugin message)
+	 *
 	 * @return The current Secondary Effect
 	 */
 	public int getSecondaryEffectId() {
@@ -83,7 +88,17 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 	}
 
 	/**
+	 * Set Secondary Effect.
+	 *
+	 * @param value - new value.
+	 */
+	public void setSecondaryEffectId(int value) {
+		handle.getIntegers().write(1, value);
+	}
+
+	/**
 	 * Retrieve Secondary Effect.
+	 *
 	 * @return The current Secondary Effect
 	 */
 	@SuppressWarnings("deprecation")
@@ -93,14 +108,7 @@ public class WrapperPlayClientBeacon extends AbstractPacket {
 
 	/**
 	 * Set Secondary Effect.
-	 * @param value - new value.
-	 */
-	public void setSecondaryEffectId(int value) {
-		handle.getIntegers().write(1, value);
-	}
-
-	/**
-	 * Set Secondary Effect.
+	 *
 	 * @param value - new value.
 	 */
 	@SuppressWarnings("deprecation")
