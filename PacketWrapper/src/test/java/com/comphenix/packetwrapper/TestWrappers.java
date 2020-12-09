@@ -1,14 +1,5 @@
 package com.comphenix.packetwrapper;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.comphenix.packetwrapper.util.Removed;
 import com.comphenix.packetwrapper.utils.ItemFactoryDelegate;
 import com.comphenix.protocol.PacketType;
@@ -16,13 +7,9 @@ import com.comphenix.protocol.reflect.FieldUtils;
 import com.comphenix.protocol.utility.Constants;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.utility.MinecraftVersion;
-import com.google.common.base.CaseFormat;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
 import net.minecraft.server.v1_15_R1.DispenserRegistry;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -31,10 +18,25 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestWrappers {
+
+	private static String stripLast(final String classFileName, final int nChars) {
+		return classFileName.substring(0, classFileName.length() - nChars);
+	}
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -66,20 +68,20 @@ public class TestWrappers {
 		File classFolder = new File("target/classes");
 		File wrappersFolder = new File(classFolder, "com/comphenix/packetwrapper");
 
-		URL[] urls = new URL[] { classFolder.toURI().toURL() };
+		URL[] urls = { classFolder.toURI().toURL() };
 
 		ClassLoader cl = new URLClassLoader(urls);
 
 		int failures = 0;
 		List<PacketType> types = new ArrayList<>();
 
-		for (String wrapper : wrappersFolder.list()) {
-			if (!wrapper.startsWith("Wrapper") || wrapper.contains("$")) {
+		for (String wrapper : Objects.requireNonNull(wrappersFolder.list())) {
+			if (!wrapper.startsWith("Wrapper") || wrapper.contains("$") || !wrapper.endsWith(".class")) {
 				continue;
 			}
 
 			Class<? extends AbstractPacket> clazz = (Class<? extends AbstractPacket>)
-					cl.loadClass("com.comphenix.packetwrapper." + wrapper.replace(".class", ""));
+					cl.loadClass("com.comphenix.packetwrapper." + stripLast(wrapper, 6) /* remove `.class` */);
 
 			if (clazz.getAnnotation(Deprecated.class) != null) {
 				System.out.println("Skipping deprecated wrapper " + clazz.getSimpleName());
@@ -91,7 +93,7 @@ public class TestWrappers {
 			Constructor<? extends AbstractPacket> ctor = clazz.getConstructor();
 			AbstractPacket instance = ctor.newInstance();
 
-			PacketType type = instance.handle.getType();
+			PacketType type = instance.getHandle().getType();
 			types.add(type);
 
 			if (type == PacketType.Play.Server.COMBAT_EVENT) {
