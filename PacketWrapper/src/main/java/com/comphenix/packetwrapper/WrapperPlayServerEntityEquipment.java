@@ -18,15 +18,20 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.reflect.StructureModifier;
+import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
+import com.comphenix.protocol.wrappers.Pair;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
+import java.util.List;
 
+@BackwardsCompatible
 public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.ENTITY_EQUIPMENT;
 
@@ -34,6 +39,8 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	 * All {@link ItemSlot} enum's values stored for faster access
 	 */
 	protected static final ItemSlot[] ITEM_SLOTS = ItemSlot.values();
+
+	protected static final boolean SUPPORTS_MULTIPLE_SLOTS = MINOR_VERSION >= 16;
 
 	public WrapperPlayServerEntityEquipment() {
 		super(new PacketContainer(TYPE), TYPE);
@@ -45,10 +52,19 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	}
 
 	/**
+	 * Checks if this packet supports multiple slots.
+	 *
+	 * @return {@code true} if this packet supports multiple slots and {@code false} otherwise
+	 */
+	public static boolean supportMultipleSlots() {
+		return SUPPORTS_MULTIPLE_SLOTS;
+	}
+
+	/**
 	 * Retrieve Entity ID.
 	 * <p>
 	 * Notes: entity's ID
-	 * 
+	 *
 	 * @return The current Entity ID
 	 */
 	public int getEntityID() {
@@ -57,7 +73,7 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 
 	/**
 	 * Set Entity ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
@@ -66,7 +82,7 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity of the painting that will be spawned.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The spawned entity.
 	 */
@@ -74,9 +90,21 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 		return handle.getEntityModifier(world).read(0);
 	}
 
+	@BackwardsCompatible(sinceMinor = 16)
+	public List<Pair<ItemSlot, ItemStack>> getContents() {
+		if (MINOR_VERSION >= 16) return handle.getSlotStackPairLists().read(0);
+		throw new UnsupportedOperationException("Unsupported on versions less than 1.16");
+	}
+
+	@BackwardsCompatible(sinceMinor = 16)
+	public void setContents(List<Pair<ItemSlot, ItemStack>> contents) {
+		if (MINOR_VERSION >= 16) handle.getSlotStackPairLists().write(0, contents);
+		else throw new UnsupportedOperationException("Unsupported on versions less than 1.16");
+	}
+
 	/**
 	 * Retrieve the entity of the painting that will be spawned.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The spawned entity.
 	 */
@@ -85,6 +113,15 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	}
 
 	public ItemSlot getSlot() {
+		if (MINOR_VERSION >= 16) {
+			final List<Pair<ItemSlot, ItemStack>> slots = handle.getSlotStackPairLists().read(0);
+			switch (slots.size()) {
+				case 0: return null;
+				case 1: return slots.get(0).getFirst();
+				default: throw new UnsupportedOperationException("This packet has multiple slots specified");
+			}
+		}
+
 		if (MINOR_VERSION >= 9) return handle.getItemSlots().read(0);
 		int slot = handle.getIntegers().read(0);
 		if (slot >= ITEM_SLOTS.length) throw new IllegalArgumentException("Unknown item slot received: " + slot);
@@ -92,31 +129,47 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	}
 
 	public void setSlot(ItemSlot value) {
-		if (MINOR_VERSION >= 9) handle.getItemSlots().write(0, value);
-		else {
-			switch (value) {
-				case MAINHAND: {
-					handle.getIntegers().write(1, 0);
-					break;
+		if (MINOR_VERSION >= 16) {
+			final StructureModifier<List<Pair<ItemSlot, ItemStack>>> modifier = handle.getSlotStackPairLists();
+			List<Pair<ItemSlot, ItemStack>> slots = modifier.read(0);
+			switch (slots.size()) {
+				case 0: {
+					slots.add(new Pair<>(value, null));
+					modifier.write(0, slots);
+					return;
 				}
-				case OFFHAND: throw new IllegalArgumentException("Offhand is not available on 1.8 or less");
-				case FEET: {
-					handle.getIntegers().write(1, 1);
-					break;
+				case 1: {
+					slots.get(0).setFirst(value);
+					modifier.write(0, slots);
+					return;
 				}
-				case LEGS: {
-					handle.getIntegers().write(1, 2);
-					break;
-				}
-				case CHEST: {
-					handle.getIntegers().write(1, 3);
-					break;
-				}
-				case HEAD: {
-					handle.getIntegers().write(1, 4);
-					break;
-				}
+				default: throw new UnsupportedOperationException("This packet has multiple slots specified");
 			}
+		}
+
+		if (MINOR_VERSION >= 9) handle.getItemSlots().write(0, value);
+		else switch (value) {
+			case MAINHAND: {
+				handle.getIntegers().write(1, 0);
+				break;
+			}
+			case FEET: {
+				handle.getIntegers().write(1, 1);
+				break;
+			}
+			case LEGS: {
+				handle.getIntegers().write(1, 2);
+				break;
+			}
+			case CHEST: {
+				handle.getIntegers().write(1, 3);
+				break;
+			}
+			case HEAD: {
+				handle.getIntegers().write(1, 4);
+				break;
+			}
+			case OFFHAND: throw new IllegalArgumentException("Offhand is not available on 1.8 or less");
 		}
 	}
 
@@ -124,19 +177,46 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	 * Retrieve Item.
 	 * <p>
 	 * Notes: item in slot format
-	 * 
+	 *
 	 * @return The current Item
 	 */
 	public ItemStack getItem() {
+		if (MINOR_VERSION >= 16) {
+			final List<Pair<ItemSlot, ItemStack>> slots = handle.getSlotStackPairLists().read(0);
+			switch (slots.size()) {
+				case 0: return null;
+				case 1: return slots.get(0).getSecond();
+				default: throw new UnsupportedOperationException("This packet has multiple slots specified");
+			}
+		}
+
 		return handle.getItemModifier().read(0);
 	}
 
 	/**
 	 * Set Item.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setItem(ItemStack value) {
+		if (MINOR_VERSION >= 16) {
+			final StructureModifier<List<Pair<ItemSlot, ItemStack>>> modifier = handle.getSlotStackPairLists();
+			List<Pair<ItemSlot, ItemStack>> slots = modifier.read(0);
+			switch (slots.size()) {
+				case 0: {
+					slots.add(new Pair<>(null, value));
+					modifier.write(0, slots);
+					return;
+				}
+				case 1: {
+					slots.get(0).setSecond(value);
+					modifier.write(0, slots);
+					return;
+				}
+				default: throw new UnsupportedOperationException("This packet has multiple slots specified");
+			}
+		}
+
 		handle.getItemModifier().write(0, value);
 	}
 }
