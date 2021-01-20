@@ -18,11 +18,11 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.VersionUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.utility.MinecraftVersion;
 import com.google.common.base.Objects;
 import org.bukkit.entity.Player;
 
@@ -31,19 +31,16 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class AbstractPacket {
 	// The packet we will be modifying
 	protected final PacketContainer handle;
-
-	protected static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
-	protected static final MinecraftVersion VERSION = PROTOCOL_MANAGER.getMinecraftVersion();
 	/*
 	 * Note that the following primitive fields are all `static final`
 	 * so that JIT can inline them and even perform static-folding
 	 */
-	protected static final int MAJOR_VERSION = VERSION.getMajor();
-	protected static final int MINOR_VERSION = VERSION.getMinor();
-	protected static final int VERSION_BUILD = VERSION.getBuild();
+	protected static final int MAJOR_VERSION = VersionUtil.getMajorVersion();
+	protected static final int MINOR_VERSION = VersionUtil.getMinorVersion();
+	protected static final int VERSION_BUILD = VersionUtil.getBuildVersion();
 
 	static {
-		if (MAJOR_VERSION != 1) throw new Error("Major Minecraft version " + VERSION + " is unsupported");
+		if (MAJOR_VERSION != 1) throw new Error("Major Minecraft version " + MAJOR_VERSION + " is unsupported");
 	}
 
 	/**
@@ -72,6 +69,10 @@ public abstract class AbstractPacket {
 		return handle;
 	}
 
+	protected static ProtocolManager protocolManager() {
+		return ProtocolManagerHolder.PROTOCOL_MANAGER;
+	}
+
 	/**
 	 * Send the current packet to the given receiver.
 	 * 
@@ -80,8 +81,7 @@ public abstract class AbstractPacket {
 	 */
 	public void sendPacket(Player receiver) {
 		try {
-			PROTOCOL_MANAGER.sendServerPacket(receiver,
-					getHandle());
+			protocolManager().sendServerPacket(receiver, getHandle());
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException("Cannot send packet.", e);
 		}
@@ -91,7 +91,7 @@ public abstract class AbstractPacket {
 	 * Send the current packet to all online players.
 	 */
 	public void broadcastPacket() {
-		PROTOCOL_MANAGER.broadcastServerPacket(getHandle());
+		protocolManager().broadcastServerPacket(getHandle());
 	}
 
 	/**
@@ -115,10 +115,13 @@ public abstract class AbstractPacket {
 	 */
 	public void receivePacket(Player sender) {
 		try {
-			PROTOCOL_MANAGER.recieveClientPacket(sender,
-					getHandle());
+			protocolManager().recieveClientPacket(sender, getHandle());
 		} catch (Exception e) {
 			throw new RuntimeException("Cannot receive packet.", e);
 		}
+	}
+
+	private static final class ProtocolManagerHolder {
+		private static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 	}
 }

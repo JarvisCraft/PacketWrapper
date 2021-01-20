@@ -18,17 +18,14 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WrapperPlayServerMount extends AbstractPacket {
 
@@ -100,7 +97,7 @@ public class WrapperPlayServerMount extends AbstractPacket {
 		List<Entity> passengers = new ArrayList<>();
 
 		for (int id : ids) {
-			Entity entity = PROTOCOL_MANAGER.getEntityFromID(world, id);
+			Entity entity = protocolManager().getEntityFromID(world, id);
 			if (entity != null) {
 				passengers.add(entity);
 			}
