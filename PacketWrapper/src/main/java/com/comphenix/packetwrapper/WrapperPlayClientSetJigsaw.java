@@ -131,7 +131,7 @@ public class WrapperPlayClientSetJigsaw extends AbstractPacket {
 	 * @return The current Target pool
 	 */
 	public MinecraftKey getTargetPool() {
-		return handle.getMinecraftKeys().read(MAJOR_VERSION >= 16 ? 2 : 1);
+		return handle.getMinecraftKeys().read(MINOR_VERSION >= 16 ? 2 : 1);
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class WrapperPlayClientSetJigsaw extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setTargetPool(MinecraftKey value) {
-		handle.getMinecraftKeys().write(MAJOR_VERSION >= 16 ? 2 : 1, value);
+		handle.getMinecraftKeys().write(MINOR_VERSION >= 16 ? 2 : 1, value);
 	}
 
 	/**

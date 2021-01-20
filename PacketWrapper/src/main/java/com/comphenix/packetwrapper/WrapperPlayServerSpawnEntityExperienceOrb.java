@@ -85,7 +85,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @return The current X
 	 */
 	public double getX() {
-		return MAJOR_VERSION >= 9 ? handle.getDoubles().read(0) : handle.getIntegers().read(1) / 32D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(0) : handle.getIntegers().read(1) / 32D;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
-		if (MAJOR_VERSION >= 9) handle.getDoubles().write(0, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(0, value);
 		else handle.getIntegers().write(1, ConversionUtil.floor(value * 32));
 	}
 
@@ -106,7 +106,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @return The current y
 	 */
 	public double getY() {
-		return MAJOR_VERSION >= 9 ? handle.getDoubles().read(1) : handle.getIntegers().read(2) / 32D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(1) : handle.getIntegers().read(2) / 32D;
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
-		if (MAJOR_VERSION >= 9) handle.getDoubles().write(1, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(1, value);
 		else handle.getIntegers().write(2, ConversionUtil.floor(value * 32));
 	}
 
@@ -127,7 +127,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @return The current z
 	 */
 	public double getZ() {
-		return MAJOR_VERSION >= 9 ? handle.getDoubles().read(2) : handle.getIntegers().read(3) / 32D;
+		return MINOR_VERSION >= 9 ? handle.getDoubles().read(2) : handle.getIntegers().read(3) / 32D;
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
-		if (MAJOR_VERSION >= 9) handle.getDoubles().write(2, value);
+		if (MINOR_VERSION >= 9) handle.getDoubles().write(2, value);
 		else handle.getIntegers().write(3, ConversionUtil.floor(value * 32));
 	}
 
@@ -148,7 +148,7 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @return The current Count
 	 */
 	public int getCount() {
-		return handle.getIntegers().read(MAJOR_VERSION >= 9 ? 1 : 4);
+		return handle.getIntegers().read(MINOR_VERSION >= 9 ? 1 : 4);
 	}
 
 	/**
@@ -157,6 +157,6 @@ public class WrapperPlayServerSpawnEntityExperienceOrb extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setCount(int value) {
-		handle.getIntegers().write(MAJOR_VERSION >= 9 ? 1 : 4, value);
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 1 : 4, value);
 	}
 }
