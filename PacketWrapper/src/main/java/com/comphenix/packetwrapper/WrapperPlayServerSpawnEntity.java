@@ -19,6 +19,7 @@
 package com.comphenix.packetwrapper;
 
 import com.comphenix.packetwrapper.util.BackwardsCompatible;
+import com.comphenix.packetwrapper.util.EntityUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -329,7 +330,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	public EntityType getType() {
 		return MINOR_VERSION >= 14
 				? handle.getEntityTypeModifier().read(0)
-				: EntityType.fromId(handle.getIntegers().read(MINOR_VERSION >= 9 ? 6 : 9));
+				: EntityUtil.getEntityTypeById(handle.getIntegers().read(MINOR_VERSION >= 9 ? 6 : 9));
 	}
 
 	/**
@@ -337,17 +338,16 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	 *
 	 * @param value - new value.
 	 */
-	@SuppressWarnings("deprecation")
 	public void setType(EntityType value) {
 		if (MINOR_VERSION >= 14) handle.getEntityTypeModifier().write(0, value);
-		else handle.getIntegers().write(MINOR_VERSION >= 9 ? 6 : 9, (int) value.getTypeId());
+		else handle.getIntegers().write(MINOR_VERSION >= 9 ? 6 : 9, EntityUtil.getTypeId(value));
 	}
 
 	/**
 	 * Retrieve object data.
 	 * <p>
 	 * The content depends on the object type:
-	 * <table border="1" cellpadding="4">
+	 * <table border="1" cellpadding="4" summary="Value meaning">
 	 * <tr>
 	 * <th>Object Type:</th>
 	 * <th>Name:</th>
