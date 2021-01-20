@@ -9,7 +9,7 @@ import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.utility.MinecraftVersion;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minecraft.server.v1_15_R1.DispenserRegistry;
+import net.minecraft.server.v1_16_R3.DispenserRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.World;
