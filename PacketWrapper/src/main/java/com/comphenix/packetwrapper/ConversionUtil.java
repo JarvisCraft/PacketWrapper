@@ -34,8 +34,7 @@ public final class ConversionUtil {
      * @return number floored
      */
     public static int floor(double number) {
-        int intNumber = (int) number;
-
-        return number < (double) intNumber ? intNumber - 1 : intNumber;
+        final int intNumber;
+        return number < (double) (intNumber = (int) number) ? intNumber - 1 : intNumber;
     }
 }
