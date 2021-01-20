@@ -26,8 +26,8 @@ public final class VersionUtil {
 				.matches()) throw new RuntimeException("Unknown version: \"" + version + "\"");
 
 		MAJOR_VERSION = Integer.parseInt(matcher.group(1));
-		MINOR_VERSION = Integer.parseInt(matcher.group(1));
-		BUILD_VERSION = Integer.parseInt(matcher.group(1));
+		MINOR_VERSION = Integer.parseInt(matcher.group(2));
+		BUILD_VERSION = Integer.parseInt(matcher.group(3));
 	}
 
 	private VersionUtil() {
