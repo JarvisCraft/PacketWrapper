@@ -37,4 +37,28 @@ public final class ConversionUtil {
         final int intNumber;
         return number < (double) (intNumber = (int) number) ? intNumber - 1 : intNumber;
     }
+
+    /**
+     * Performs a fast flooring operation on a float.
+     *
+     * @param number number to floor to int
+     * @return number floored
+     */
+    public static int floor(float number) {
+        final int intNumber;
+        return number < (float) (intNumber = (int) number) ? intNumber - 1 : intNumber;
+    }
+
+    /**
+     * Fits the specified number between the given bounds.
+     *
+     * @param number number to fit between the other two
+     * @param min minimal allowed number
+     * @param max maximal allowed number
+     * @return number fitting between the specified ones
+     */
+    public static double fitBetween(final double number, final double min, final double max) {
+        final int intNumber;
+        return number < (double) (intNumber = (int) number) ? intNumber - 1 : intNumber;
+    }
 }
