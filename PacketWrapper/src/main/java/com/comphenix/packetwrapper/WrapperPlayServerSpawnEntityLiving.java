@@ -18,7 +18,8 @@
  */
 package com.comphenix.packetwrapper;
 
-import com.comphenix.packetwrapper.util.Removed;
+import com.comphenix.packetwrapper.util.BackwardsCompatible;
+import com.comphenix.packetwrapper.util.EntityUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -30,27 +31,7 @@ import org.bukkit.entity.EntityType;
 
 import java.util.UUID;
 
-/*
- * public PacketPlayOutSpawnEntityLiving(EntityLiving var0) {
- *     this.a = var0.getId();
- *     this.b = var0.getUniqueID();
- *     this.c = IRegistry.ENTITY_TYPE.a(var0.getEntityType());
- *     this.d = var0.locX();
- *     this.e = var0.locY();
- *     this.f = var0.locZ();
- *     this.j = (byte)(int)(var0.yaw * 256.0F / 360.0F);
- *     this.k = (byte)(int)(var0.pitch * 256.0F / 360.0F);
- *     this.l = (byte)(int)(var0.aC * 256.0F / 360.0F);
- *     double var1 = 3.9D;
- *     Vec3D var3 = var0.getMot();
- *     double var4 = MathHelper.a(var3.x, -3.9D, 3.9D);
- *     double var6 = MathHelper.a(var3.y, -3.9D, 3.9D);
- *     double var8 = MathHelper.a(var3.z, -3.9D, 3.9D);
- *     this.g = (int)(var4 * 8000.0D);
- *     this.h = (int)(var6 * 8000.0D);
- *     this.i = (int)(var8 * 8000.0D);
- * }
- */
+@BackwardsCompatible
 public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY_LIVING;
 
@@ -71,14 +52,13 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	// Useful constructor
 	private static PacketContainer fromEntity(Entity entity) {
-		if (entityConstructor == null)
-			entityConstructor = PROTOCOL_MANAGER.createPacketConstructor(TYPE, entity);
+		if (entityConstructor == null) entityConstructor = protocolManager().createPacketConstructor(TYPE, entity);
 		return entityConstructor.createPacket(entity);
 	}
 
 	/**
 	 * Retrieve entity ID.
-	 * 
+	 *
 	 * @return The current EID
 	 */
 	public int getEntityID() {
@@ -87,7 +67,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity that will be spawned.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The spawned entity.
 	 */
@@ -97,7 +77,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity that will be spawned.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The spawned entity.
 	 */
@@ -117,7 +97,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set entity ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
@@ -126,29 +106,27 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the type of mob.
-	 * 
+	 *
 	 * @return The current Type
 	 */
-	@SuppressWarnings("deprecation")
 	public EntityType getType() {
-		return EntityType.fromId(handle.getIntegers().read(1));
+		return EntityUtil.getEntityTypeById(handle.getIntegers().read(1));
 	}
 
 	/**
 	 * Set the type of mob.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
-	@SuppressWarnings("deprecation")
 	public void setType(EntityType value) {
-		handle.getIntegers().write(1, (int) value.getTypeId());
+		handle.getIntegers().write(1, EntityUtil.getTypeId(value));
 	}
 
 	/**
 	 * Retrieve the x position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current X
 	 */
 	public double getX() {
@@ -157,7 +135,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the x position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
@@ -169,7 +147,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the y position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current y
 	 */
 	public double getY() {
@@ -178,7 +156,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the y position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
@@ -190,7 +168,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * Retrieve the z position of the object.
 	 * <p>
 	 * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-	 * 
+	 *
 	 * @return The current z
 	 */
 	public double getZ() {
@@ -199,7 +177,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the z position of the object.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
@@ -209,7 +187,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Retrieve the yaw.
-	 * 
+	 *
 	 * @return The current Yaw
 	 */
 	public float getYaw() {
@@ -218,16 +196,16 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the yaw of the spawned mob.
-	 * 
+	 *
 	 * @param value - new yaw.
 	 */
 	public void setYaw(float value) {
-		handle.getBytes().write(0, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(0, (byte) (int) (value * 256.0F / 360.0F));
 	}
 
 	/**
 	 * Retrieve the pitch.
-	 * 
+	 *
 	 * @return The current pitch
 	 */
 	public float getPitch() {
@@ -236,16 +214,16 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the pitch of the spawned mob.
-	 * 
+	 *
 	 * @param value - new pitch.
 	 */
 	public void setPitch(float value) {
-		handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(1, (byte) (int) (value * 256.0F / 360.0F));
 	}
 
 	/**
 	 * Retrieve the yaw of the mob's head.
-	 * 
+	 *
 	 * @return The current yaw.
 	 */
 	public float getHeadPitch() {
@@ -254,16 +232,16 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the yaw of the mob's head.
-	 * 
+	 *
 	 * @param value - new yaw.
 	 */
 	public void setHeadPitch(float value) {
-		handle.getBytes().write(2, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(2, (byte) (int) (value * 256.0F / 360.0F));
 	}
 
 	/**
 	 * Retrieve the velocity in the x axis.
-	 * 
+	 *
 	 * @return The current velocity X
 	 */
 	public double getVelocityX() {
@@ -272,16 +250,16 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the x axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityX(double value) {
-		handle.getIntegers().write(MINOR_VERSION >= 9 ? 2 : 5, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 2 : 5, (int) (ConversionUtil.fitBetween(value, -3.9, 3.9) * 8000.0D));
 	}
 
 	/**
 	 * Retrieve the velocity in the y axis.
-	 * 
+	 *
 	 * @return The current velocity y
 	 */
 	public double getVelocityY() {
@@ -290,16 +268,16 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the y axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityY(double value) {
-		handle.getIntegers().write(MINOR_VERSION >= 9 ? 3 : 6, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 3 : 6, (int) (ConversionUtil.fitBetween(value, -3.9, 3.9) * 8000.0D));
 	}
 
 	/**
 	 * Retrieve the velocity in the z axis.
-	 * 
+	 *
 	 * @return The current velocity z
 	 */
 	public double getVelocityZ() {
@@ -308,32 +286,34 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 
 	/**
 	 * Set the velocity in the z axis.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setVelocityZ(double value) {
-		handle.getIntegers().write(MINOR_VERSION >= 9 ? 4 : 7, (int) (value * 8000.0D));
+		handle.getIntegers().write(MINOR_VERSION >= 9 ? 4 : 7, (int) (ConversionUtil.fitBetween(value, -3.9, 3.9) * 8000.0D));
 	}
 
 	/**
-	 * Retrieve the data watcher. This was removed in 1.15
+	 * Retrieve the data watcher.
 	 * <p>
 	 * Content varies by mob, see Entities.
-	 * 
+	 *
 	 * @return The current Metadata
 	 */
-	@Removed
+	@BackwardsCompatible(untilMinor = 14)
 	public WrappedDataWatcher getMetadata() {
+		if (MINOR_VERSION >= 15) throw new UnsupportedOperationException("Unsupported on versions greater than 1.14");
 		return handle.getDataWatcherModifier().read(0);
 	}
 
 	/**
-	 * Set the data watcher. This was removed in 1.15.
-	 * 
+	 * Set the data watcher.
+	 *
 	 * @param value - new value.
 	 */
-	@Removed
+	@BackwardsCompatible(untilMinor = 14)
 	public void setMetadata(WrappedDataWatcher value) {
+		if (MINOR_VERSION >= 15) throw new UnsupportedOperationException("Unsupported on versions greater than 1.14");
 		handle.getDataWatcherModifier().write(0, value);
 	}
 }
