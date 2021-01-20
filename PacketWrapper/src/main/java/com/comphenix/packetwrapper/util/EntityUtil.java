@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 public final class EntityUtil {
 
 	private static final int MINOR_VERSION;
-	private static final Map<EntityType, Integer> ENTITY_TYPE_IDS;
-	private static final Map<Integer, EntityType> ENTITY_TYPES;
+	private static final Map<@NotNull EntityType, @NotNull Integer> ENTITY_TYPE_IDS;
+	private static final Map<@NotNull Integer, @NotNull EntityType> ENTITY_TYPES;
 
 	static {
 		{
@@ -50,8 +50,6 @@ public final class EntityUtil {
 
 		ENTITY_TYPES = ENTITY_TYPE_IDS.entrySet().stream()
 				.collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-
-		ENTITY_TYPE_IDS.put(null, -1);
 	}
 
 	private EntityUtil() {
@@ -67,6 +65,8 @@ public final class EntityUtil {
 	 * @return type ID of the given entity type
 	 */
 	public static int getTypeId(final EntityType entityType) {
+		if (entityType == null) return -1;
+
 		return ENTITY_TYPE_IDS.get(entityType); // the value is always present
 	}
 
