@@ -134,12 +134,16 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 			List<Pair<ItemSlot, ItemStack>> slots = modifier.read(0);
 			switch (slots.size()) {
 				case 0: {
-					slots.add(new Pair<>(value, null));
-					modifier.write(0, slots);
+					if (value != null) {
+						slots.add(new Pair<>(value, null));
+						modifier.write(0, slots);
+					}
 					return;
 				}
 				case 1: {
-					slots.get(0).setFirst(value);
+					final Pair<ItemSlot, ItemStack> first;
+					if ((first = slots.get(0)).getSecond() != null) first.setFirst(value);
+					else slots.remove(0);
 					modifier.write(0, slots);
 					return;
 				}
@@ -204,12 +208,16 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 			List<Pair<ItemSlot, ItemStack>> slots = modifier.read(0);
 			switch (slots.size()) {
 				case 0: {
-					slots.add(new Pair<>(null, value));
-					modifier.write(0, slots);
+					if (value != null) {
+						slots.add(new Pair<>(null, value));
+						modifier.write(0, slots);
+					}
 					return;
 				}
 				case 1: {
-					slots.get(0).setSecond(value);
+					final Pair<ItemSlot, ItemStack> first;
+					if ((first = slots.get(0)).getFirst() != null) first.setSecond(value);
+					else slots.remove(0);
 					modifier.write(0, slots);
 					return;
 				}
