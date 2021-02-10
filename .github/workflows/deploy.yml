@@ -24,8 +24,9 @@ jobs:
 
       - name: Deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn -B -f ./PacketWrapper/pom.xml deploy -s ./.github-actions/maven/settings.xml
+          SONATYPE_OSSRH_DEPLOYER: ${{ secrets.SONATYPE_OSSRH_DEPLOYER }}
+          SONATYPE_OSSRH_TOKEN: ${{ secrets.SONATYPE_OSSRH_TOKEN }}
+        run: mvn -B -f ./PacketWrapper/pom.xml deploy -s ./.github-actions/maven/deployment.xml
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
