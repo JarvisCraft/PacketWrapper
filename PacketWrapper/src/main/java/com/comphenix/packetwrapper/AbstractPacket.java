@@ -124,4 +124,9 @@ public abstract class AbstractPacket {
 	private static final class ProtocolManagerHolder {
 		private static final ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "{handle=" + handle + '}';
+	}
 }
